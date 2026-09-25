@@ -27,7 +27,7 @@ MODELOS = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite"]
 USAR_BUSQUEDA = False            # la búsqueda de Google no entra en el plan gratis
 VOZ = "es-AR-TomasNeural"        # alternativa femenina: es-AR-ElenaNeural
 VELOCIDAD = "+8%"                # más rápido o más lento: "+0%", "+15%"
-PALABRAS_OBJETIVO = 1300         # ~9 minutos
+PALABRAS_OBJETIVO = 1500         # ~9-10 minutos
 
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
@@ -43,8 +43,25 @@ TICKERS = {
     "VIST": "Vista", "TGS": "ADR TGS", "CEPU": "ADR Central Puerto", "MELI": "Mercado Libre",
 }
 
+# Panel líder del Merval y bonos en BYMA (variación de la última rueda)
+PANEL_AR = ["GGAL", "YPFD", "PAMP", "BMA", "BBAR", "SUPV", "TXAR", "ALUA", "CEPU", "TGSU2",
+            "TGNO4", "EDN", "TRAN", "LOMA", "CRES", "COME", "VALO", "BYMA", "METR", "TECO2",
+            "MIRG", "CVH", "IRSA", "HARG"]
+BONOS_AR = ["AL30", "GD30", "AL35", "GD35", "AE38", "GD38", "AL41", "GD41", "GD46"]
+
 BUSQUEDAS_NOTICIAS = [
-    ("Merval acciones cierre", "es-419", "AR"),
+    ("Merval acciones cierre when:1d", "es-419", "AR"),
+    ("mercados argentinos hoy when:1d", "es-419", "AR"),
+    ("site:ambito.com finanzas when:1d", "es-419", "AR"),
+    ("site:cronista.com finanzas-mercados when:1d", "es-419", "AR"),
+    ("site:infobae.com economia when:1d", "es-419", "AR"),
+    ("site:lanacion.com.ar economia when:1d", "es-419", "AR"),
+    ("site:iprofesional.com finanzas when:1d", "es-419", "AR"),
+    ("site:bloomberglinea.com argentina when:1d", "es-419", "AR"),
+    ("Caputo ministro economía anuncio when:1d", "es-419", "AR"),
+    ("Banco Central compró dólares reservas when:1d", "es-419", "AR"),
+    ("inflación salarios actividad INDEC", "es-419", "AR"),
+    ("FMI Argentina deuda pagos", "es-419", "AR"),
     ("bonos argentinos riesgo país", "es-419", "AR"),
     ("dólar MEP CCL BCRA reservas", "es-419", "AR"),
     ("caución tasas Lecap TAMAR", "es-419", "AR"),
@@ -94,11 +111,61 @@ def datos_duros():
     return datos
 
 
+def variacion(ticker):
+    import yfinance as yf
+    h = yf.Ticker(ticker).history(period="7d", interval="1d")["Close"].dropna()
+    if len(h) >= 2:
+        ult, prev = float(h.iloc[-1]), float(h.iloc[-2])
+        return {"precio": round(ult, 2), "var_%": round((ult / prev - 1) * 100, 2)}
+    return None
+
+
+def datos_argentina():
+    ar = {}
+    # Acciones del panel líder y bonos en pesos (BYMA vía Yahoo)
+    for grupo, lista in (("acciones_panel_lider_BYMA", PANEL_AR), ("bonos_soberanos_BYMA", BONOS_AR)):
+        res = {}
+        for t in lista:
+            try:
+                v = variacion(t + ".BA")
+                if v:
+                    res[t] = v
+            except Exception:
+                pass
+        if res:
+            ar[grupo] = dict(sorted(res.items(), key=lambda x: x[1]["var_%"], reverse=True))
+
+    # Variables del BCRA: reservas, tasas, tipo de cambio mayorista
+    try:
+        import urllib3
+        urllib3.disable_warnings()
+        r = requests.get("https://api.bcra.gob.ar/estadisticas/v3.0/monetarias",
+                         timeout=25, verify=False).json()
+        claves = ("reservas", "badlar", "tamar", "mayorista", "base monetaria",
+                  "plazo fijo", "política monetaria", "inflación", "cer", "uva")
+        ar["bcra"] = [{"dato": v.get("descripcion"), "fecha": v.get("fecha"), "valor": v.get("valor")}
+                      for v in r.get("results", [])
+                      if any(c in (v.get("descripcion") or "").lower() for c in claves)][:25]
+    except Exception:
+        pass
+
+    # Tasas de plazo fijo de los principales bancos
+    try:
+        pf = requests.get("https://api.argentinadatos.com/v1/finanzas/tasas/plazoFijo",
+                          timeout=15).json()
+        ar["plazo_fijo_bancos"] = [{"banco": b.get("entidad"), "tna_clientes": b.get("tnaClientes")}
+                                   for b in pf][:8]
+    except Exception:
+        pass
+    return ar
+
+
 # ---------------- 2. Titulares (Google News RSS) ----------------
-def titulares(max_por_busqueda=8, horas=30):
+def titulares(max_por_busqueda=8, horas=36):
     limite = time.time() - horas * 3600
     salida = []
     for q, idioma, pais in BUSQUEDAS_NOTICIAS:
+        tope = 10 if pais == "AR" else max_por_busqueda
         url = ("https://news.google.com/rss/search?q=" + urllib.parse.quote(q) +
                f"&hl={idioma}&gl={pais}&ceid={pais}:{idioma.split('-')[0]}")
         try:
@@ -109,7 +176,7 @@ def titulares(max_por_busqueda=8, horas=30):
                     continue
                 salida.append(e.title)
                 n += 1
-                if n >= max_por_busqueda:
+                if n >= tope:
                     break
         except Exception:
             pass
@@ -121,7 +188,8 @@ SISTEMA = f"""Sos el conductor de un podcast matinal de mercados para un gerente
 de un agente productor argentino. Hablás en español rioplatense, tono radial, claro y ágil.
 El texto va a ser leído por una voz sintética: NO uses markdown, viñetas, tablas ni símbolos.
 Escribí los números como se dicen ("cero coma ocho por ciento", "mil doscientos puntos básicos").
-Largo: alrededor de {PALABRAS_OBJETIVO} palabras. Nunca inventes datos: si algo no lo pudiste
+Largo: entre {PALABRAS_OBJETIVO} y {PALABRAS_OBJETIVO + 200} palabras, nunca menos. La mitad del
+episodio tiene que ser sobre Argentina. Nunca inventes datos: si algo no lo pudiste
 confirmar, decilo o omitilo. Priorizá lo que un asesor financiero necesita saber antes de la rueda."""
 
 PEDIDO = """Hoy es {fecha}. Armá el episodio de hoy.
@@ -149,12 +217,21 @@ Estructura del episodio:
 1. Saludo breve con la fecha y los tres titulares del día.
 2. Apertura global: futuros de EE.UU., Asia, Europa, dólar, petróleo, oro, Treasuries.
 3. Lo más importante del mundo.
-4. Argentina, cómo cerró ayer: acciones, ADRs, bonos, riesgo país, dólares, tasas y BCRA,
-   con las causas de los movimientos.
-5. Argentina, qué trae hoy: agenda local, licitaciones y emisiones, y cómo vienen los ADRs
-   en el premarket.
+4. Argentina, cómo cerró ayer (bloque largo, el más importante del episodio):
+   - Merval y panel líder: nombrá las 3 o 4 acciones que más subieron y las que más bajaron
+     con su variación, y explicá por qué si los titulares lo permiten.
+   - ADRs en Wall Street, destacando los movimientos más fuertes.
+   - Bonos soberanos (Bonares y Globales) y riesgo país.
+   - Dólar oficial, mayorista, MEP y CCL, y la brecha.
+   - Tasas: caución, TAMAR/BADLAR, plazo fijo, Lecaps.
+   - BCRA: compras o ventas de dólares y reservas.
+   - Las 3 o 4 noticias locales más importantes (gobierno, economía, empresas, FMI), cada una
+     con contexto y por qué le importa al mercado.
+5. Argentina, qué trae hoy: agenda local, datos del INDEC o BCRA, licitaciones, ONs y emisiones,
+   y qué esperar para la rueda.
 6. Agenda internacional del día: datos, emisiones y eventos.
-7. Cierre: "qué mirar hoy" en tres puntos y despedida corta.
+7. Cierre: "qué mirar hoy" en tres puntos y despedida corta. Mantené siempre este cierre
+   con el mismo estilo: tres puntos concretos y accionables para la jornada.
 
 Devolvé SOLO el guion final entre las etiquetas <guion> y </guion>."""
 
@@ -236,7 +313,9 @@ def actualizar_feed(nuevo):
 # ---------------- Main ----------------
 def main():
     EPIS.mkdir(parents=True, exist_ok=True)
-    guion = escribir_guion(datos_duros(), titulares())
+    datos = datos_duros()
+    datos["argentina"] = datos_argentina()
+    guion = escribir_guion(datos, titulares())
     if len(guion.split()) < 200:
         raise SystemExit("El guion salió vacío o muy corto; no se publica el episodio.")
 
