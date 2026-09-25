@@ -22,7 +22,9 @@ BASE_URL = os.environ["FEED_BASE_URL"].rstrip("/")
 DOCS = pathlib.Path("docs")
 EPIS = DOCS / "episodios"
 MAX_EPISODIOS = 15
-MODELO = "gemini-3.8-flash"      # gratis, con búsqueda de Google incluida
+# Se prueban en orden: si uno está saturado o sin cupo, pasa al siguiente
+MODELOS = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite"]
+USAR_BUSQUEDA = False            # la búsqueda de Google no entra en el plan gratis
 VOZ = "es-AR-TomasNeural"        # alternativa femenina: es-AR-ElenaNeural
 VELOCIDAD = "+8%"                # más rápido o más lento: "+0%", "+15%"
 PALABRAS_OBJETIVO = 1300         # ~9 minutos
@@ -42,11 +44,20 @@ TICKERS = {
 }
 
 BUSQUEDAS_NOTICIAS = [
-    ("Merval acciones bonos cierre", "es-419", "AR"),
-    ("riesgo país dólar BCRA reservas", "es-419", "AR"),
-    ("licitación Tesoro Lecap obligaciones negociables", "es-419", "AR"),
+    ("Merval acciones cierre", "es-419", "AR"),
+    ("bonos argentinos riesgo país", "es-419", "AR"),
+    ("dólar MEP CCL BCRA reservas", "es-419", "AR"),
+    ("caución tasas Lecap TAMAR", "es-419", "AR"),
+    ("licitación Tesoro Secretaría de Finanzas", "es-419", "AR"),
+    ("obligaciones negociables emisión licitación", "es-419", "AR"),
+    ("INDEC dato hoy economía", "es-419", "AR"),
+    ("agenda económica semana mercados", "es-419", "AR"),
     ("stock market futures Wall Street", "en-US", "US"),
-    ("Fed Treasury yields economic calendar", "en-US", "US"),
+    ("Fed Treasury yields", "en-US", "US"),
+    ("economic calendar this week", "en-US", "US"),
+    ("earnings today stocks", "en-US", "US"),
+    ("bond sale emerging markets issuance", "en-US", "US"),
+    ("Europe Asia markets today", "en-US", "US"),
 ]
 
 
@@ -121,7 +132,7 @@ Datos de mercado ya relevados (fuente principal para las cifras):
 Titulares de las últimas horas:
 {titulares}
 
-Buscá en Google para completar y confirmar:
+Con los datos y titulares de arriba (y la búsqueda de Google si está disponible), cubrí:
 - Internacional: cómo cerró Wall Street ayer, cómo operan Asia y Europa hoy, noticias financieras
   y macro relevantes (EE.UU., Europa, China, Brasil, commodities), Fed y Treasuries.
 - Argentina, RUEDA DE AYER (último día hábil): cierre del Merval en pesos y en dólares, acciones
@@ -153,19 +164,25 @@ def escribir_guion(datos, heads):
     pedido = PEDIDO.format(fecha=FECHA_TXT,
                            datos=json.dumps(datos, ensure_ascii=False, indent=1),
                            titulares="\n".join(f"- {t}" for t in heads) or "(sin titulares)")
+    herramientas = [types.Tool(google_search=types.GoogleSearch())] if USAR_BUSQUEDA else None
     texto = ""
-    for usar_busqueda in (True, False):  # si la búsqueda falla, arma con datos + titulares
-        try:
-            config = types.GenerateContentConfig(
-                system_instruction=SISTEMA,
-                tools=[types.Tool(google_search=types.GoogleSearch())] if usar_busqueda else None)
-            texto = client.models.generate_content(model=MODELO, contents=pedido,
-                                                   config=config).text or ""
-            if texto.strip():
-                break
-        except Exception as e:
-            print("Aviso Gemini:", e)
-            time.sleep(20)
+    for modelo in MODELOS:
+        for intento in range(3):  # reintenta si el modelo está saturado
+            try:
+                config = types.GenerateContentConfig(system_instruction=SISTEMA,
+                                                     tools=herramientas)
+                texto = client.models.generate_content(model=modelo, contents=pedido,
+                                                       config=config).text or ""
+                if texto.strip():
+                    print(f"Guion generado con {modelo}")
+                    break
+            except Exception as e:
+                print(f"Aviso Gemini ({modelo}, intento {intento + 1}):", str(e)[:300])
+                if "429" in str(e) or "404" in str(e):
+                    break  # sin cupo o no disponible: pasar al siguiente modelo
+                time.sleep(30)
+        if texto.strip():
+            break
 
     m = re.search(r"<guion>(.*?)</guion>", texto, re.S)
     guion = (m.group(1) if m else texto).strip()
