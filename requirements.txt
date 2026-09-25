@@ -1,0 +1,5 @@
+google-genai
+edge-tts
+feedparser
+requests
+yfinance
