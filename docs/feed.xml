@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+<channel>
+  <title>Morning Brief de Mercados</title>
+  <link>https://PatoPinsi.github.io/morning-brief</link>
+  <language>es-ar</language>
+  <description>Resumen diario de mercados argentinos e internacionales.</description>
+  <itunes:author>Morning Brief</itunes:author>
+  <itunes:block>Yes</itunes:block>
+  <item>
+    <title>Morning Brief - Viernes 25 de septiembre de 2026</title>
+    <description>Muy buenos días para todos. Es viernes veinticinco de septiembre de dos mil veintiséis y esto es el arranque financiero para que empieces tu jornada bien informado. Los tres temas que marcan el pulso de hoy son: la disparada en las tasas de los bonos del tesoro de los Estados Unidos que presiona a l...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-09-25.mp3" length="1615248" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-09-25.mp3</guid>
+    <pubDate>Fri, 25 Sep 2026 09:32:38 -0300</pubDate>
+    <itunes:duration>05:51</itunes:duration>
+  </item>
+</channel>
+</rss>
