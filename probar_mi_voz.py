@@ -50,10 +50,21 @@ def a_mp3(wav, mp3):
 
 def openvoice():
     """Toma el audio de Tomás (con la pronunciación ya corregida) y le pone tu timbre."""
+    import types
     from huggingface_hub import snapshot_download
+    # OpenVoice intenta cargar una marca de agua (wavmark) que no necesitamos: se reemplaza por un módulo vacío
+    falso = types.ModuleType("wavmark")
+
+    class _SinMarca:
+        def to(self, *a, **k):
+            return None
+
+    falso.load_model = lambda *a, **k: _SinMarca()
+    sys.modules.setdefault("wavmark", falso)
     from openvoice.api import ToneColorConverter
     ckpt = snapshot_download("myshell-ai/OpenVoiceV2", allow_patterns=["converter/*"])
-    conv = ToneColorConverter(f"{ckpt}/converter/config.json", device="cpu", enable_watermark=False)
+    conv = ToneColorConverter(f"{ckpt}/converter/config.json", device="cpu")
+    conv.watermark_model = None
     conv.load_ckpt(f"{ckpt}/converter/checkpoint.pth")
     tomas("tomas.wav")
     muestra_wav(sr=22050)
