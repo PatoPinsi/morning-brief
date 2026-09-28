@@ -1,0 +1,76 @@
+name: Probar mi voz
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  openvoice:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Instalar OpenVoice
+        run: |
+          pip install torch torchaudio --index-url https://download.pytorch.org/whl/cpu
+          pip install --no-deps git+https://github.com/myshell-ai/OpenVoice.git
+          pip install "numpy<2" librosa soundfile edge-tts huggingface_hub eng_to_ipa inflect unidecode jieba pypinyin cn2an
+      - run: python probar_mi_voz.py openvoice
+        env:
+          VOZ_MUESTRA_1: ${{ secrets.VOZ_MUESTRA_1 }}
+          VOZ_MUESTRA_2: ${{ secrets.VOZ_MUESTRA_2 }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openvoice
+          path: salida/
+
+  chatterbox:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Instalar Chatterbox
+        run: pip install chatterbox-tts edge-tts
+      - run: python probar_mi_voz.py chatterbox
+        env:
+          VOZ_MUESTRA_1: ${{ secrets.VOZ_MUESTRA_1 }}
+          VOZ_MUESTRA_2: ${{ secrets.VOZ_MUESTRA_2 }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chatterbox
+          path: salida/
+
+  publicar:
+    needs: [openvoice, chatterbox]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install edge-tts
+      - uses: actions/download-artifact@v4
+        with:
+          path: salida
+          merge-multiple: true
+        continue-on-error: true
+      - run: python probar_mi_voz.py pagina
+      - run: |
+          git config user.name "morning-bot"
+          git config user.email "morning-bot@users.noreply.github.com"
+          git add docs
+          git commit -m "Prueba de mi voz" || echo "Sin cambios"
+          git pull --rebase
+          git push
