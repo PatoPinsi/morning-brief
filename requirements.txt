@@ -3,3 +3,4 @@ edge-tts
 feedparser
 requests
 yfinance
+pillow
