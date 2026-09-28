@@ -37,13 +37,13 @@ PALABRAS_MIN, PALABRAS_MAX = 380, 500      # ~3 a 3,5 minutos
 # Canastas (vencimientos en la nota al pie del panel)
 SOB_CORTO = ["AO27", "GD29", "AL29", "AN29", "GD30", "AL30"]            # 2027-2030
 SOB_LARGO = ["GD35", "AL35", "GD38", "AE38", "GD41", "AL41", "GD46"]    # 2035-2046
-ON_CORTO = ["VSCY", "TTC8"]                                             # 2026-2028
+ON_CORTO = ["VSCY", "TTC8", "YM37", "YM38", "YM40"]                     # 2026-2028
 ON_LARGO = ["YMC1", "YMCI", "YM43", "YM39", "YMCU", "YMCX", "MGCT",
             "MGCM", "VSCZ", "TTCE", "TTCD", "PLC6"]                     # 2029-2031
 ADRS = ["YPF", "GGAL", "BMA", "PAM", "VIST", "TGS", "CEPU", "SUPV",
         "BBAR", "CRESY", "EDN", "LOMA", "TEO", "IRS"]
 
-NOTAS_PIE = [
+NOTAS_PIE = [  # referencia; las notas del panel se arman según lo que se muestra
     "Renta fija, corto y largo según vencimiento: Soberanos HD (Globales y Bonares) corto 2027-2030, largo 2035-2046.",
     "ON AAA (YPF, Pampa, Vista, Tecpetrol y Pluspetrol) corto 2026-2028, largo 2029-2031.",
     "La información es orientativa y no constituye una recomendación de inversión.",
@@ -113,6 +113,47 @@ def promedio(valores):
 
 
 DATA912 = "https://data912.com"
+RAVA = "https://www.rava.com/perfil/descarga-historicos/"
+_CACHE_RAVA = {}
+
+
+def rava(especie):
+    """Serie diaria de Rava hasta HOY: lista de (fecha, cierre). Sirve para bonos, ON y caución."""
+    if especie in _CACHE_RAVA:
+        return _CACHE_RAVA[especie]
+    filas = []
+    try:
+        r = requests.get(RAVA + urllib.parse.quote(especie), timeout=25,
+                         headers={"User-Agent": "Mozilla/5.0"})
+        if r.status_code == 200 and "fecha" in r.text[:300]:
+            import csv, io
+            for x in csv.DictReader(io.StringIO(r.text.lstrip("\ufeff"))):
+                try:
+                    if x["fecha"] <= HOY.isoformat() and float(x["cierre"]) > 0:
+                        filas.append((x["fecha"], float(x["cierre"])))
+                except (KeyError, ValueError):
+                    pass
+        time.sleep(0.3)
+    except Exception as e:
+        print(f"Aviso Rava {especie}:", e)
+    filas.sort()
+    _CACHE_RAVA[especie] = filas
+    return filas
+
+
+def var_rava(especie):
+    filas = rava(especie)
+    prev = [t for t in filas if t[0] < LUNES.isoformat()]
+    if not prev or not filas or filas[-1][0] < LUNES.isoformat():
+        return None
+    return round((filas[-1][1] / prev[-1][1] - 1) * 100, 2)
+
+
+def caucion_7d():
+    filas = rava("CAUCION 7D")
+    if filas and filas[-1][0] >= LUNES.isoformat():
+        return f"{filas[-1][1]:.1f}%".replace(".", ",")
+    return None
 TODOS_RF = SOB_CORTO + SOB_LARGO + ON_CORTO + ON_LARGO
 
 
@@ -164,7 +205,9 @@ def fotos_semanales(precios_hoy):
 
 
 def var_en_dolares(especie, mep_var, foto_hoy, foto_ant):
-    v = var_data912(especie + "D")
+    v = var_rava(especie + "D")
+    if v is None:
+        v = var_data912(especie + "D")
     if v is None:
         vp = var_data912(especie)
         if vp is not None and mep_var is not None:
@@ -192,29 +235,38 @@ def dolar(casa):
 
 def bcra():
     salida = {"reservas": None, "var_reservas": None, "tamar": None}
-    try:
-        import urllib3
-        urllib3.disable_warnings()
-        base = "https://api.bcra.gob.ar/estadisticas/v3.0/monetarias"
-        lista = requests.get(base, timeout=25, verify=False).json().get("results", [])
-        id_res = next((v["idVariable"] for v in lista
-                       if "reservas internacionales" in (v.get("descripcion") or "").lower()), 1)
-        tamar = next((v for v in lista if "tamar" in (v.get("descripcion") or "").lower()), None)
-        if tamar and tamar.get("valor") is not None:
-            salida["tamar"] = f"{float(tamar['valor']):.1f}%".replace(".", ",")
-        desde = (LUNES - datetime.timedelta(days=14)).isoformat()
-        serie = requests.get(f"{base}/{id_res}?desde={desde}&hasta={HOY.isoformat()}",
-                             timeout=25, verify=False).json().get("results", [])
-        if serie and "detalle" in serie[0]:
-            serie = serie[0]["detalle"]
-        serie = sorted(serie, key=lambda x: x["fecha"])
-        if serie:
-            ult = serie[-1]["valor"]
-            prev = [x for x in serie if x["fecha"] < LUNES.isoformat()]
-            salida["reservas"] = ult
-            salida["var_reservas"] = ult - prev[-1]["valor"] if prev else None
-    except Exception as e:
-        print("Aviso BCRA:", e)
+    import urllib3
+    urllib3.disable_warnings()
+    for version in ("v4.0", "v3.0"):
+        try:
+            base = f"https://api.bcra.gob.ar/estadisticas/{version}/monetarias"
+            lista = requests.get(base, timeout=25, verify=False).json().get("results", [])
+            if not lista:
+                continue
+
+            def ultimo(v):
+                return v.get("ultValorInformado", v.get("valor"))
+
+            res = next((v for v in lista if "reservas internacionales" in (v.get("descripcion") or "").lower()), None)
+            tam = next((v for v in lista if "tamar" in (v.get("descripcion") or "").lower()), None)
+            if tam and ultimo(tam) is not None:
+                salida["tamar"] = f"{float(ultimo(tam)):.1f}%".replace(".", ",")
+            id_res = res["idVariable"] if res else 1
+            desde = (LUNES - datetime.timedelta(days=14)).isoformat()
+            serie = requests.get(f"{base}/{id_res}?desde={desde}&hasta={HOY.isoformat()}",
+                                 timeout=25, verify=False).json().get("results", [])
+            if serie and isinstance(serie[0], dict) and "detalle" in serie[0]:
+                serie = serie[0]["detalle"]
+            serie = sorted([x for x in serie if x.get("fecha", "") <= HOY.isoformat()], key=lambda x: x["fecha"])
+            if serie:
+                ult = serie[-1]["valor"]
+                prev = [x for x in serie if x["fecha"] < LUNES.isoformat()]
+                salida["reservas"] = ult
+                salida["var_reservas"] = ult - prev[-1]["valor"] if prev else None
+            if salida["reservas"] is not None:
+                return salida
+        except Exception as e:
+            print(f"Aviso BCRA {version}:", e)
     return salida
 
 
@@ -262,7 +314,7 @@ def datos_semana():
                      ("ADRs", promedio([var(t) for t in ADRS]))],
         "riesgo_pais": riesgo_pais(),
         "bcra": {"reservas": b["reservas"], "var_reservas": b["var_reservas"],
-                 "caucion": None, "tamar": b["tamar"], "plazo_fijo": plazo_fijo()},
+                 "caucion": caucion_7d(), "tamar": b["tamar"], "plazo_fijo": plazo_fijo()},
         "renta_fija": [
             ("Soberanos HD corto", canasta(SOB_CORTO)),
             ("Soberanos HD largo", canasta(SOB_LARGO)),
@@ -307,7 +359,8 @@ Lo que anticipamos el viernes pasado para esta semana:
 Devolvé SOLO un JSON válido:
 {{
  "titulares": ["5 titulares de la semana, estilo diario financiero, máximo 65 caracteres cada uno,
-               mezclando Argentina e internacional, del más al menos relevante"],
+               mezclando Argentina e internacional, del más al menos relevante. En los titulares los
+               números van en cifras (ej. '609 pb', '2,9%', 'US$84.000'), nunca escritos en palabras"],
  "caucion_7d_tna": "tasa de caución a 7 días (TNA) si figura en los titulares, ej. '20,3%'; si no, null",
  "evaluacion": [{{"tema": "...", "expectativa": "...", "resultado": "Se cumplió" | "Se cumplió parcialmente" |
                  "No se cumplió" | "Sin datos suficientes", "comentario": "una oración"}}],
@@ -319,6 +372,7 @@ Reglas:
 - "evaluacion": una entrada por cada punto anticipado; si no hubo, lista vacía.
 - "proxima_semana": entre 3 y 5 puntos.
 - Nunca inventes números: si un dato no está, no lo menciones.
+- Solo en el "guion" los números van escritos como se dicen; en "titulares" van en cifras.
 - "guion": ENTRE {pmin} Y {pmax} PALABRAS, NUNCA MÁS. Español rioplatense, frases cortas, ritmo ágil y
   con punch, como un cierre radial. Sin símbolos ni markdown; números escritos como se dicen y
   redondeados. Estructura:
@@ -431,8 +485,9 @@ def fuente(nombre, tamanio):
 
 
 def dibujar_panel(p, destino):
+    """Dibuja el panel. Todo dato faltante se oculta: nunca aparece 's/d'."""
     W = 1600
-    img = Image.new("RGB", (W, 2200), FONDO)
+    img = Image.new("RGB", (W, 2400), FONDO)
     dr = ImageDraw.Draw(img)
     F = fuente
     fT, fSub, fSec = F("Poppins-Bold.ttf", 64), F("Poppins-Medium.ttf", 28), F("Poppins-Bold.ttf", 38)
@@ -472,96 +527,142 @@ def dibujar_panel(p, destino):
     fecha = HOY.strftime("%d.%m.%Y")
     dr.text((W - M - 30 - dr.textlength(fecha, font=fSec), 78), fecha, font=fSec, fill=DORADO)
 
-    # Fila 1: Dólar | Acciones | BCRA y tasas
-    y = 220
-    w3 = (W - 2 * M - 2 * G) // 3
-    xs = [M, M + w3 + G, M + 2 * (w3 + G)]
-    hc = 340
-    for x, t in zip(xs, ("Dólar", "Acciones", "BCRA y tasas")):
-        titulo(t, x, y)
-    yc = y + 62
-    for x in xs:
-        card(x, yc, w3, hc)
-    pad, ww = 26, w3 - 52
-    yy = yc + 28
-    for n, precio, v in p["dolar"]:
-        fila(xs[0] + pad, yy, ww, n, "$" + num(precio), v)
-        yy += 62
-    yy = yc + 24
-    for n, v in p["mercados"]:
-        fila(xs[1] + pad, yy, ww, n, None, v)
-        yy += 52
-    yy += 4
-    rp = p["riesgo_pais"]
-    dr.text((xs[1] + pad, yy), "Riesgo País", font=fL, fill="white")
-    val = f"{num(rp['valor'])} pb"
-    dr.text((xs[1] + pad + ww - dr.textlength(val, font=fV), yy), val, font=fV, fill="white")
-    if rp["var"] is not None:
-        t = pct(rp["var"]) + " en la semana"
-        dr.text((xs[1] + pad + ww - dr.textlength(t, font=fS), yy + 40), t, font=fS, fill=color(-rp["var"]))
-
+    # ---- Fila 1: Dólar | Acciones | BCRA y tasas (solo lo que tiene datos) ----
+    dol = [(n, pr, v) for n, pr, v in p["dolar"] if pr is not None and v is not None]
+    acc = [(n, v) for n, v in p["mercados"] if v is not None]
+    rp = p["riesgo_pais"] if p["riesgo_pais"].get("valor") else None
     b = p["bcra"]
-    x = xs[2] + pad
-    dr.text((x, yc + 22), "Reservas brutas", font=fS, fill=GRIS)
-    dr.text((x, yc + 48), f"US${num(b['reservas'])} M", font=fBig, fill="white")
-    vr = b["var_reservas"]
-    if vr is not None:
-        signo = "+" if vr >= 0 else "-"
-        dr.text((x, yc + 108), f"{signo}US${num(abs(vr))} M en la semana", font=fS,
-                fill=VERDE if vr >= 0 else ROJO)
-    dr.line((x, yc + 158, x + ww, yc + 158), fill=GRIS, width=1)
-    yy = yc + 178
-    for n, v in (("Caución 7d (TNA)", b["caucion"]), ("TAMAR (TNA)", b["tamar"]),
-                 ("Plazo fijo (TNA)", b["plazo_fijo"])):
-        dr.text((x, yy), n, font=fL, fill="white")
-        dr.text((x + ww - dr.textlength(v or "s/d", font=fV), yy), v or "s/d", font=fV, fill="white")
-        yy += 50
+    tasas = [(n, v) for n, v in (("Caución 7d (TNA)", b.get("caucion")), ("TAMAR (TNA)", b.get("tamar")),
+                                 ("Plazo fijo (TNA)", b.get("plazo_fijo"))) if v]
+    hay_res = b.get("reservas") is not None
 
-    # Renta fija: franja compacta
-    y = yc + hc + 36
-    titulo("Renta fija en dólares", M, y)
-    ycr = y + 62
-    wr, hr = W - 2 * M, 124
-    card(M, ycr, wr, hr)
-    wcel = wr / 4
-    for i, (nombre, v) in enumerate(p["renta_fija"]):
-        cx = M + i * wcel
-        if i:
-            dr.line((cx, ycr + 22, cx, ycr + hr - 22), fill=GRIS, width=1)
-        dr.text((cx + (wcel - dr.textlength(nombre, font=fS)) / 2, ycr + 20), nombre, font=fS, fill=GRIS)
-        t = pct(v)
-        dr.text((cx + (wcel - dr.textlength(t, font=fVar)) / 2, ycr + 52), t, font=fVar, fill=color(v))
+    bloques = []
+    if dol:
+        bloques.append(("Dólar", "dolar"))
+    if acc or rp:
+        bloques.append(("Acciones", "acciones"))
+    if hay_res or len(tasas) >= 2:   # un bloque casi vacío se ve desprolijo: se omite
+        bloques.append(("BCRA y tasas" if hay_res else "Tasas", "bcra"))
 
-    # Fila 2: Wall Street | Emergentes | Cripto | Petróleo
-    y = ycr + hr + 36
-    w4 = (W - 2 * M - 3 * G) // 4
-    xs4 = [M + i * (w4 + G) for i in range(4)]
-    for x, t in zip(xs4, ("Wall Street", "Emergentes", "Cripto", "Petróleo")):
-        titulo(t, x, y)
-    yc2, hc2 = y + 62, 220
-    for x in xs4:
-        card(x, yc2, w4, hc2)
-    for i, clave in enumerate(("wall_street", "emergentes", "cripto", "petroleo")):
-        yy = yc2 + 26
-        filas = p[clave]
-        paso = 62 if len(filas) == 3 else 88
-        for f in filas:
-            fila(xs4[i] + 26, yy, w4 - 52, f[0], None, f[1], f[2] if len(f) > 2 else None)
-            yy += paso
+    y = 220
+    if bloques:
+        n = len(bloques)
+        wc = (W - 2 * M - (n - 1) * G) // n
+        hc = 340
+        for i, (t, clave) in enumerate(bloques):
+            x = M + i * (wc + G)
+            titulo(t, x, y)
+            yc = y + 62
+            card(x, yc, wc, hc)
+            pad, ww = 26, wc - 52
+            if clave == "dolar":
+                paso = min(62, (hc - 40) // max(len(dol), 1))
+                yy = yc + 28
+                for nombre, precio, v in dol:
+                    fila(x + pad, yy, ww, nombre, "$" + num(precio), v)
+                    yy += paso
+            elif clave == "acciones":
+                yy = yc + 24
+                for nombre, v in acc:
+                    fila(x + pad, yy, ww, nombre, None, v)
+                    yy += 52
+                if rp:
+                    yy += 4
+                    dr.text((x + pad, yy), "Riesgo País", font=fL, fill="white")
+                    val = f"{num(rp['valor'])} pb"
+                    dr.text((x + pad + ww - dr.textlength(val, font=fV), yy), val, font=fV, fill="white")
+                    if rp.get("var") is not None:
+                        t2 = pct(rp["var"]) + " en la semana"
+                        dr.text((x + pad + ww - dr.textlength(t2, font=fS), yy + 40), t2, font=fS,
+                                fill=color(-rp["var"]))
+            else:
+                yy = yc + 22
+                if hay_res:
+                    dr.text((x + pad, yy), "Reservas brutas", font=fS, fill=GRIS)
+                    dr.text((x + pad, yy + 26), f"US${num(b['reservas'])} M", font=fBig, fill="white")
+                    vr = b.get("var_reservas")
+                    if vr is not None:
+                        signo = "+" if vr >= 0 else "-"
+                        dr.text((x + pad, yy + 86), f"{signo}US${num(abs(vr))} M en la semana", font=fS,
+                                fill=VERDE if vr >= 0 else ROJO)
+                    if tasas:
+                        dr.line((x + pad, yc + 158, x + pad + ww, yc + 158), fill=GRIS, width=1)
+                    yy = yc + 178
+                else:
+                    yy = yc + (hc - len(tasas) * 70) // 2 + 10
+                for nombre, v in tasas:
+                    dr.text((x + pad, yy), nombre, font=fL, fill="white")
+                    dr.text((x + pad + ww - dr.textlength(v, font=fV), yy), v, font=fV, fill="white")
+                    yy += 50 if hay_res else 70
+        y = y + 62 + hc + 36
 
-    # Titulares
-    y = yc2 + hc2 + 36
-    titulo("Titulares de la semana", M, y)
-    yc3 = y + 62
-    card(M, yc3, W - 2 * M, 5 * 52 + 44)
-    yy = yc3 + 26
-    for i, t in enumerate(p["titulares"][:5]):
-        dr.text((M + 30, yy), f"#{i + 1}", font=fV, fill=DORADO)
-        dr.text((M + 100, yy), t, font=fL, fill="white")
-        yy += 52
-    for k, n in enumerate(NOTAS_PIE):
-        dr.text((M + 6, yc3 + 5 * 52 + 58 + k * 28), n, font=fN, fill=GRIS)
-    img.crop((0, 0, W, yc3 + 5 * 52 + 44 + 124)).save(destino)
+    # ---- Renta fija: solo las canastas con datos ----
+    rf = [(n, v) for n, v in p["renta_fija"] if v is not None]
+    if rf:
+        titulo("Renta fija en dólares", M, y)
+        ycr = y + 62
+        wr, hr = W - 2 * M, 124
+        card(M, ycr, wr, hr)
+        wcel = wr / len(rf)
+        for i, (nombre, v) in enumerate(rf):
+            cx = M + i * wcel
+            if i:
+                dr.line((cx, ycr + 22, cx, ycr + hr - 22), fill=GRIS, width=1)
+            dr.text((cx + (wcel - dr.textlength(nombre, font=fS)) / 2, ycr + 20), nombre, font=fS, fill=GRIS)
+            t = pct(v)
+            dr.text((cx + (wcel - dr.textlength(t, font=fVar)) / 2, ycr + 52), t, font=fVar, fill=color(v))
+        y = ycr + hr + 36
+
+    # ---- Fila 2: Wall Street | Emergentes | Cripto | Petróleo (solo con datos) ----
+    grupos = []
+    for t, clave in (("Wall Street", "wall_street"), ("Emergentes", "emergentes"),
+                     ("Cripto", "cripto"), ("Petróleo", "petroleo")):
+        filas = [f for f in p[clave] if f[1] is not None]
+        if filas:
+            grupos.append((t, filas))
+    if grupos:
+        n = len(grupos)
+        w4 = (W - 2 * M - (n - 1) * G) // n
+        yc2, hc2 = y + 62, 220
+        for i, (t, filas) in enumerate(grupos):
+            x = M + i * (w4 + G)
+            titulo(t, x, y)
+            card(x, yc2, w4, hc2)
+            yy = yc2 + 26
+            paso = 62 if len(filas) == 3 else 88
+            for f in filas:
+                fila(x + 26, yy, w4 - 52, f[0], None, f[1], f[2] if len(f) > 2 else None)
+                yy += paso
+        y = yc2 + hc2 + 36
+
+    # ---- Titulares ----
+    tits = [t for t in p["titulares"][:5] if t]
+    if tits:
+        titulo("Titulares de la semana", M, y)
+        yc3 = y + 62
+        alto = len(tits) * 52 + 44
+        card(M, yc3, W - 2 * M, alto)
+        yy = yc3 + 26
+        for i, t in enumerate(tits):
+            dr.text((M + 30, yy), f"#{i + 1}", font=fV, fill=DORADO)
+            dr.text((M + 100, yy), t, font=fL, fill="white")
+            yy += 52
+        y = yc3 + alto + 14
+
+    # ---- Notas al pie (solo de lo que se muestra) ----
+    nombres_rf = [n for n, _ in rf]
+    notas = []
+    sob = [n for n in nombres_rf if n.startswith("Soberanos")]
+    ons = [n for n in nombres_rf if n.startswith("ON")]
+    if sob:
+        notas.append("Renta fija, corto y largo según vencimiento: Soberanos HD (Globales y Bonares) "
+                     "corto 2027-2030, largo 2035-2046.")
+    if ons:
+        notas.append("ON AAA (YPF, Pampa, Vista, Tecpetrol y Pluspetrol) corto 2026-2028, largo 2029-2031.")
+    notas.append("La información es orientativa y no constituye una recomendación de inversión.")
+    for k, n in enumerate(notas):
+        dr.text((M + 6, y + k * 28), n, font=fN, fill=GRIS)
+    img.crop((0, 0, W, y + len(notas) * 28 + 30)).save(destino)
 
 
 # ================= 6. Pronósticos, audio y publicación =================
@@ -634,9 +735,14 @@ def main():
 
     c = generar_contenido(p, titulares_noticias(), previos)
     p["titulares"] = c.get("titulares", [])[:5]
-    p["bcra"]["caucion"] = c.get("caucion_7d_tna")
+    p["bcra"]["caucion"] = p["bcra"]["caucion"] or c.get("caucion_7d_tna")
     f = HOY.isoformat()
 
+    faltantes = [n for n, _, v in p["dolar"] if v is None] + [n for n, v in p["mercados"] if v is None] \
+        + [n for n, v in p["renta_fija"] if v is None] \
+        + [k for k in ("reservas", "caucion", "tamar", "plazo_fijo") if not p["bcra"].get(k)]
+    if faltantes:
+        print("ATENCIÓN, datos sin fuente esta semana:", ", ".join(faltantes))
     dibujar_panel(p, CARPETA / f"panel-{f}.png")
     guion = recortar_guion(re.sub(r"[*#_`>]", "", c["guion"]).strip())
     generar_audio(guion, CARPETA / f"panel-{f}.mp3")
