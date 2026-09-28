@@ -32,7 +32,7 @@ MAX_EDICIONES = 26
 
 MODELOS = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite"]
 VOZ = "es-AR-TomasNeural"        # alternativa: "es-AR-ElenaNeural"
-VELOCIDAD = "+5%"
+VELOCIDAD = "+8%"                 # ritmo ágil (elegido en la prueba de voces)
 PALABRAS_MIN, PALABRAS_MAX = 380, 500      # ~3 a 3,5 minutos
 
 # Canastas (vencimientos en la nota al pie del panel)
@@ -374,13 +374,16 @@ Reglas:
 - "proxima_semana": entre 3 y 5 puntos.
 - Nunca inventes números: si un dato no está, no lo menciones.
 - Solo en el "guion" los números van escritos como se dicen; en "titulares" van en cifras.
-- "guion": ENTRE {pmin} Y {pmax} PALABRAS, NUNCA MÁS. Tiene que sonar como un analista porteño
-  hablando en la radio, no como un texto leído:
-  * Castellano rioplatense con voseo ("fijate", "tené en cuenta", "mirá"). Nada de español neutro:
-    decí "plata" y no "dinero", "la rueda" o "el mercado" y no "la sesión bursátil", "el blue",
-    "el contado con liqui", "los papeles", "cerró en verde / en rojo", "el Tesoro", "la City".
+- "guion": ENTRE {pmin} Y {pmax} PALABRAS, NUNCA MÁS. Tono informativo y profesional, como un
+  analista presentando el cierre semanal a una comunidad de inversores, con vocabulario argentino:
+  * Nada de expresiones coloquiales ni imperativos: no uses "ojo", "fijate", "mirá", "tené en cuenta",
+    "che" ni similares. Preferí "hay que seguir de cerca", "vale la pena prestar atención a",
+    "el dato a seguir es".
+  * Nada de español neutro: "la rueda", "el mercado", "el contado con liqui", "el blue", "el Tesoro",
+    "cerró en alza / en baja", "los bonos en dólares".
   * Frases cortas (máximo 20 palabras), con comas y puntos donde un locutor respiraría.
-  * Conectores naturales: "arrancamos", "vamos con", "ojo con", "el dato de la semana", "cerramos con".
+  * Conectores informativos: "comenzamos con", "en el plano local", "en el frente internacional",
+    "el dato de la semana", "para cerrar".
   * Empresas por su nombre (Galicia, Pampa, Vista); YPF, el S&P 500 y el Nasdaq se escriben así.
   * Sin símbolos ni markdown; números escritos como se dicen y redondeados.
   Estructura:

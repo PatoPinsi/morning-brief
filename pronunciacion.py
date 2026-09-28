@@ -7,6 +7,15 @@ El orden importa: primero van las expresiones más largas.
 import re
 
 REEMPLAZOS = [
+    # Red de seguridad de tono: si la IA igual usa estas expresiones, se reemplazan
+    (r"\bOjo con el\b", "Atención al"),
+    (r"\bojo con el\b", "atención al"),
+    (r"\bOjo con\b", "Atención a"),
+    (r"\bojo con\b", "atención a"),
+    (r"\b[FfFf][ií]jate en\b", "Hay que seguir"),
+    (r"\b[Ff][ií]jate\b", "Hay que ver"),
+    (r"\bTené en cuenta\b", "Hay que tener en cuenta"),
+    (r"\btené en cuenta\b", "hay que tener en cuenta"),
     # Índices y mercados
     (r"S&P\s?500", "ésanpi quinientos"),
     (r"S&P", "ésanpi"),
