@@ -2,22 +2,10 @@
  {
   "semana": "2026-09-25",
   "items": [
-   {
-    "tema": "Datos de empleo e inflación en EE. UU.",
-    "expectativa": "La publicación de indicadores laborales y de precios definirá la expectativa sobre la próxima suba de tasas de la Reserva Federal."
-   },
-   {
-    "tema": "Licitación de deuda del Tesoro",
-    "expectativa": "El Tesoro buscará renovar 8,6 billones de pesos en instrumentos financieros."
-   },
-   {
-    "tema": "Evolución de reservas del BCRA",
-    "expectativa": "Se monitoreará si la autoridad monetaria logra retomar la racha compradora de dólares tras la sangría semanal."
-   },
-   {
-    "tema": "Acciones argentinas y MSCI",
-    "expectativa": "El mercado estará atento al impacto del cambio de índice MSCI sobre la liquidez del Merval en octubre."
-   }
+   "El Gobierno informará nuevos datos de inflación para observar la dinámica de precios",
+   "El mercado seguirá de cerca las licitaciones del Tesoro para renovar deuda en pesos",
+   "Wall Street publicará el reporte de empleo que definirá las expectativas sobre la Fed",
+   "Se monitoreará la evolución del conflicto en Medio Oriente y su impacto en el crudo"
   ]
  }
 ]
