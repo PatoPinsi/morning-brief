@@ -382,17 +382,29 @@ Reglas:
   * Nada de español neutro: "la rueda", "el mercado", "el contado con liqui", "el blue", "el Tesoro",
     "cerró en alza / en baja", "los bonos en dólares".
   * Frases cortas (máximo 20 palabras), con comas y puntos donde un locutor respiraría.
+  * Registro profesional, como el resumen semanal que una firma de inversiones comparte con su
+    comunidad: redacción cuidada y formal ("reflejando", "en el plano local", "resulta clave"),
+    sin coloquialismos, pero con frases que se entiendan al escucharlas.
+  * Expresiones claras: nada ambiguo como "volatilidad estatal"; decí "la volatilidad de los bonos
+    del Tesoro" o "de la deuda soberana".
   * Conectores informativos: "comenzamos con", "en el plano local", "en el frente internacional",
     "el dato de la semana", "para cerrar".
   * Empresas por su nombre (Galicia, Pampa, Vista); YPF, el S&P 500 y el Nasdaq se escriben así.
   * Sin símbolos ni markdown; números escritos como se dicen y redondeados.
-  Estructura:
-  1. Apertura de Toros Capital en una frase con gancho.
-  2. Los temas que marcaron la semana, rápido y al grano (los 5 titulares, una o dos frases cada uno).
-  3. Los números clave en tres o cuatro frases: dólar, riesgo país, Merval y bonos.
+  * Dólar: nunca digas la cotización en pesos de ningún tipo de cambio (oficial, mayorista, MEP,
+    contado con liqui, blue). Solo cuánto subió o bajó en la semana, en porcentaje.
+  Estructura (respetá este orden SIEMPRE; nunca vuelvas a un bloque ya terminado, para no marear
+  al oyente):
+  1. Apertura de Toros Capital en una o dos frases.
+  2. MERCADO LOCAL, completo en un solo bloque: primero las noticias locales de la semana
+     (riesgo país, actividad, Gobierno, Banco Central), después los números: dólar (solo variación
+     semanal), Merval, ADRs, bonos soberanos cortos y largos, obligaciones negociables, reservas,
+     caución y plazo fijo.
+  3. MERCADO INTERNACIONAL, completo en un solo bloque: noticias de afuera, Wall Street (S&P 500,
+     Nasdaq, Dow Jones), emergentes, petróleo y cripto.
   4. Si hubo pronósticos: en una o dos frases, qué anticipamos y si se cumplió.
-  5. Lo que se viene la próxima semana.
-  6. Cierre: tres puntos concretos para tener en el radar y despedida corta."""
+  5. PRÓXIMA SEMANA: primero lo local y después lo internacional.
+  6. Cierre: tres puntos para tener en el radar y despedida corta."""
 
 
 def generar_contenido(datos, heads, previos):
