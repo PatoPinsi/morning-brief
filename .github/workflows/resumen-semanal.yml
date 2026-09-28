@@ -2,7 +2,7 @@ name: Resumen semanal
 
 on:
   schedule:
-    - cron: "10 20 * * 5"   # viernes 17:10 hora Argentina; el mail llega alrededor de las 17:30
+    - cron: "10 20 * * 5"   # viernes 17:10 hora Argentina
   workflow_dispatch:
     inputs:
       fecha:
@@ -14,7 +14,8 @@ permissions:
   contents: write
 
 jobs:
-  generar:
+  # 1) Datos, panel, guion y audio de respaldo (Tomás)
+  contenido:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +27,72 @@ jobs:
         env:
           FECHA_REPORTE: ${{ github.event.inputs.fecha }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          FEED_BASE_URL: ${{ vars.FEED_BASE_URL }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: contenido
+          path: |
+            docs/semanal
+            salida/guion.txt
+
+  # 2) Tu voz: el guion se genera en 8 partes en paralelo
+  voz:
+    needs: contenido
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: chatterbox-modelo-v1
+      - run: pip install chatterbox-tts
+      - uses: actions/download-artifact@v4
+        with:
+          name: contenido
+          path: .
+      - run: python voz_chatterbox.py generar ${{ matrix.parte }} 8
+        env:
+          VOZ_MUESTRA_1: ${{ secrets.VOZ_MUESTRA_1 }}
+          VOZ_MUESTRA_2: ${{ secrets.VOZ_MUESTRA_2 }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parte-${{ matrix.parte }}
+          path: partes/
+          if-no-files-found: ignore
+
+  # 3) Une las partes, publica y manda el mail (si tu voz falla, va la de Tomás)
+  publicar:
+    needs: [contenido, voz]
+    if: always() && needs.contenido.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg && pip install -r requirements.txt
+      - uses: actions/download-artifact@v4
+        with:
+          name: contenido
+          path: .
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: parte-*
+          path: partes
+          merge-multiple: true
+        continue-on-error: true
+      - run: python voz_chatterbox.py unir 8
+        env:
           FEED_BASE_URL: ${{ vars.FEED_BASE_URL }}
       - name: Publicar
         run: |
