@@ -3,20 +3,20 @@
   "semana": "2026-09-25",
   "items": [
    {
-    "tema": "Dato de inflación y empleo en Estados Unidos",
-    "expectativa": "El mercado reaccionará a los nuevos indicadores macroeconómicos de la Reserva Federal"
+    "tema": "Datos de empleo e inflación en EE. UU.",
+    "expectativa": "La publicación de indicadores laborales y de precios definirá la expectativa sobre la próxima suba de tasas de la Reserva Federal."
    },
    {
     "tema": "Licitación de deuda del Tesoro",
-    "expectativa": "El Gobierno buscará renovar vencimientos por 8,6 billones de pesos"
+    "expectativa": "El Tesoro buscará renovar 8,6 billones de pesos en instrumentos financieros."
+   },
+   {
+    "tema": "Evolución de reservas del BCRA",
+    "expectativa": "Se monitoreará si la autoridad monetaria logra retomar la racha compradora de dólares tras la sangría semanal."
    },
    {
     "tema": "Acciones argentinas y MSCI",
-    "expectativa": "El mercado ajustará posiciones ante el cambio de índice a partir de octubre"
-   },
-   {
-    "tema": "Cotización del Bitcoin",
-    "expectativa": "El activo buscará consolidar su precio por encima de los 84.000 dólares"
+    "expectativa": "El mercado estará atento al impacto del cambio de índice MSCI sobre la liquidez del Merval en octubre."
    }
   ]
  }
