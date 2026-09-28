@@ -112,13 +112,67 @@ def promedio(valores):
     return round(sum(v) / len(v), 2) if v else None
 
 
-def var_en_dolares(especie, mep_var):
-    """Variación semanal en USD: especie D (MEP) o, si no hay, especie en pesos ajustada por MEP."""
-    v = var(especie + "D.BA")
+DATA912 = "https://data912.com"
+TODOS_RF = SOB_CORTO + SOB_LARGO + ON_CORTO + ON_LARGO
+
+
+def var_data912(ticker):
+    """Variación semanal con la serie histórica de data912 (bonos y ON)."""
+    try:
+        r = requests.get(f"{DATA912}/historical/bonds/{ticker}", timeout=20)
+        if r.status_code != 200:
+            return None
+        filas = []
+        for x in r.json():
+            f = str(x.get("date") or x.get("fecha") or "")[:10]
+            c = x.get("c") or x.get("close")
+            if f and c:
+                filas.append((f, float(c)))
+        filas = sorted(t for t in filas if t[0] <= HOY.isoformat())
+        prev = [t for t in filas if t[0] < LUNES.isoformat()]
+        if not prev or filas[-1][0] < LUNES.isoformat():
+            return None
+        return round((filas[-1][1] / prev[-1][1] - 1) * 100, 2)
+    except Exception:
+        return None
+
+
+def precios_en_vivo():
+    """Último precio de bonos y ON en dólares MEP (panel en vivo de data912)."""
+    precios = {}
+    for panel in ("arg_bonds", "arg_corp"):
+        try:
+            for x in requests.get(f"{DATA912}/live/{panel}", timeout=20).json():
+                sym, c = x.get("symbol"), x.get("c") or x.get("px_bid")
+                if sym and c and sym.endswith("D") and sym[:-1] in TODOS_RF:
+                    precios[sym] = float(c)
+        except Exception:
+            pass
+    return precios
+
+
+def fotos_semanales(precios_hoy):
+    """Guarda la foto de precios de esta semana y devuelve la del viernes anterior."""
+    archivo = CARPETA / "precios_semanales.json"
+    fotos = json.loads(archivo.read_text()) if archivo.exists() else []
+    anteriores = [f for f in fotos if f["semana"] < LUNES.isoformat()]
+    if precios_hoy and not _FECHA:
+        fotos = [f for f in fotos if f["semana"] != HOY.isoformat()]
+        fotos.append({"semana": HOY.isoformat(), "precios": precios_hoy})
+        archivo.write_text(json.dumps(fotos[-12:], ensure_ascii=False, indent=1))
+    return anteriores[-1]["precios"] if anteriores else {}
+
+
+def var_en_dolares(especie, mep_var, foto_hoy, foto_ant):
+    v = var_data912(especie + "D")
     if v is None:
-        vp = var(especie + ".BA") or var(especie + "O.BA")
+        vp = var_data912(especie)
         if vp is not None and mep_var is not None:
             v = round(((1 + vp / 100) / (1 + mep_var / 100) - 1) * 100, 2)
+    if v is None and not _FECHA:
+        hoy, ant = foto_hoy.get(especie + "D"), foto_ant.get(especie + "D")
+        if hoy and ant:
+            v = round((hoy / ant - 1) * 100, 2)
     return v
 
 
@@ -194,6 +248,12 @@ def datos_semana():
     merval_usd = (round(((1 + merval / 100) / (1 + ccl_var / 100) - 1) * 100, 2)
                   if merval is not None and ccl_var is not None else None)
     b = bcra()
+    foto_hoy = {} if _FECHA else precios_en_vivo()
+    foto_ant = fotos_semanales(foto_hoy)
+
+    def canasta(lista):
+        return promedio([var_en_dolares(t, mep_var, foto_hoy, foto_ant) for t in lista])
+
     btc, eth = precio_y_var("BTC-USD"), precio_y_var("ETH-USD")
     wti, brent = precio_y_var("CL=F"), precio_y_var("BZ=F")
     return {
@@ -204,10 +264,10 @@ def datos_semana():
         "bcra": {"reservas": b["reservas"], "var_reservas": b["var_reservas"],
                  "caucion": None, "tamar": b["tamar"], "plazo_fijo": plazo_fijo()},
         "renta_fija": [
-            ("Soberanos HD corto", promedio([var_en_dolares(t, mep_var) for t in SOB_CORTO])),
-            ("Soberanos HD largo", promedio([var_en_dolares(t, mep_var) for t in SOB_LARGO])),
-            ("ON AAA corto", promedio([var_en_dolares(t, mep_var) for t in ON_CORTO])),
-            ("ON AAA largo", promedio([var_en_dolares(t, mep_var) for t in ON_LARGO])),
+            ("Soberanos HD corto", canasta(SOB_CORTO)),
+            ("Soberanos HD largo", canasta(SOB_LARGO)),
+            ("ON AAA corto", canasta(ON_CORTO)),
+            ("ON AAA largo", canasta(ON_LARGO)),
         ],
         "wall_street": [("Dow Jones", var("^DJI")), ("S&P 500", var("^GSPC")), ("Nasdaq", var("^IXIC"))],
         "emergentes": [("Brasil", var("EWZ"), "ETF EWZ"), ("China", var("MCHI"), "ETF MCHI")],
@@ -279,8 +339,10 @@ def generar_contenido(datos, heads, previos):
         previos=json.dumps(previos, ensure_ascii=False, indent=1) if previos else "(ninguno)",
         pmin=PALABRAS_MIN, pmax=PALABRAS_MAX)
     config = types.GenerateContentConfig(response_mime_type="application/json")
-    for modelo in MODELOS:
-        for intento in range(3):
+    # Si los modelos están saturados, reintenta durante ~12 minutos antes de rendirse
+    for ronda, espera in enumerate((0, 60, 120, 240, 300)):
+        time.sleep(espera)
+        for modelo in MODELOS:
             try:
                 texto = client.models.generate_content(model=modelo, contents=pedido,
                                                        config=config).text or ""
@@ -290,11 +352,45 @@ def generar_contenido(datos, heads, previos):
                     print(f"Contenido generado con {modelo} ({palabras} palabras)")
                     return c
             except Exception as e:
-                print(f"Aviso Gemini ({modelo}, intento {intento + 1}):", str(e)[:300])
-                if "429" in str(e) or "404" in str(e):
-                    break
-                time.sleep(30)
-    raise SystemExit("No se pudo generar el contenido.")
+                print(f"Aviso Gemini ({modelo}, ronda {ronda + 1}):", str(e)[:200])
+    print("Gemini no respondió: se genera la versión básica.")
+    return contenido_basico(datos, heads)
+
+
+def _mov(v, sujeto, plural=False):
+    if v is None:
+        return ""
+    if abs(v) < 0.05:
+        return f"{sujeto} {'quedaron' if plural else 'quedó'} sin cambios. "
+    verbo = ("subieron" if v > 0 else "bajaron") if plural else ("subió" if v > 0 else "bajó")
+    return f"{sujeto} {verbo} {abs(v):.1f} por ciento. ".replace(".", ",", 1)
+
+
+def contenido_basico(d, heads):
+    """Plan B si la IA no responde: titulares de las noticias y un audio corto armado con los datos."""
+    tits = []
+    for t in heads:
+        t = t.rsplit(" - ", 1)[0].strip()
+        if 15 < len(t) <= 75 and t not in tits:
+            tits.append(t)
+        if len(tits) == 5:
+            break
+    dol = {n: v for n, _, v in d["dolar"]}
+    merc = dict(d["mercados"])
+    rf = dict(d["renta_fija"])
+    ws = {n: v for n, v in d["wall_street"]}
+    rp = d["riesgo_pais"]["valor"]
+    guion = ("Hola, este es el resumen semanal de Toros Capital. Vamos con los números de la semana. "
+             + _mov(dol.get("MEP"), "El dólar MEP") + _mov(dol.get("CCL"), "El contado con liqui")
+             + (f"El riesgo país cerró en {int(rp)} puntos básicos. " if rp else "")
+             + _mov(merc.get("Merval (USD)"), "El Merval en dólares")
+             + _mov(rf.get("Soberanos HD corto"), "Los soberanos cortos", True)
+             + _mov(rf.get("Soberanos HD largo"), "Los soberanos largos", True)
+             + _mov(ws.get("S&P 500"), "En Wall Street, el S&P 500")
+             + ("Los temas que marcaron la semana: " + ". ".join(tits[:3]) + ". " if tits else "")
+             + "Todo el detalle está en el panel semanal. Buen fin de semana.")
+    return {"titulares": tits, "caucion_7d_tna": None, "evaluacion": [], "proxima_semana": [],
+            "guion": guion, "basico": True}
 
 
 def recortar_guion(guion, maximo=560):
@@ -544,7 +640,8 @@ def main():
     dibujar_panel(p, CARPETA / f"panel-{f}.png")
     guion = recortar_guion(re.sub(r"[*#_`>]", "", c["guion"]).strip())
     generar_audio(guion, CARPETA / f"panel-{f}.mp3")
-    guardar_pronosticos(pronosticos, c.get("proxima_semana", []))
+    if not c.get("basico"):
+        guardar_pronosticos(pronosticos, c.get("proxima_semana", []))
     publicar({"fecha": f, "titulo": f"Resumen Semanal - {HOY.strftime('%d/%m/%Y')}",
               "resumen": " | ".join(p["titulares"]),
               "bytes": (CARPETA / f"panel-{f}.mp3").stat().st_size,
