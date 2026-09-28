@@ -4,7 +4,7 @@ Genera el Panel Semanal (imagen), un audio corto (máx. ~4 min) y una página we
 Guarda lo que se anticipa para la semana siguiente y el viernes siguiente lo compara con lo que pasó.
 El envío por mail lo hace enviar_mail.py.
 """
-import os, re, json, html, time, asyncio, pathlib, datetime, urllib.parse
+import os, re, sys, json, html, time, asyncio, pathlib, datetime, urllib.parse
 from zoneinfo import ZoneInfo
 
 import requests
@@ -756,7 +756,9 @@ def main():
         print("ATENCIÓN, datos sin fuente esta semana:", ", ".join(faltantes))
     dibujar_panel(p, CARPETA / f"panel-{f}.png")
     guion = recortar_guion(re.sub(r"[*#_`>]", "", c["guion"]).strip())
-    generar_audio(adaptar(guion), CARPETA / f"panel-{f}.mp3")
+    generar_audio(adaptar(guion), CARPETA / f"panel-{f}.mp3")   # voz de respaldo (Tomás)
+    pathlib.Path("salida").mkdir(exist_ok=True)
+    pathlib.Path("salida/guion.txt").write_text(adaptar(guion), encoding="utf-8")   # para tu voz
     if not c.get("basico"):
         guardar_pronosticos(pronosticos, c.get("proxima_semana", []))
     publicar({"fecha": f, "titulo": f"Resumen Semanal - {HOY.strftime('%d/%m/%Y')}",
@@ -766,5 +768,18 @@ def main():
     print(f"Panel semanal listo: {f} ({len(guion.split())} palabras de audio)")
 
 
+def reemplazar_audio(mp3):
+    """Reemplaza el audio de respaldo por el generado con tu voz y actualiza feed y página."""
+    ed = json.loads((CARPETA / "ediciones.json").read_text())[0]
+    destino = CARPETA / f"panel-{ed['fecha']}.mp3"
+    destino.write_bytes(pathlib.Path(mp3).read_bytes())
+    ed["bytes"] = destino.stat().st_size
+    publicar(ed)
+    print("Audio reemplazado por la versión con tu voz.")
+
+
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) > 2 and sys.argv[1] == "reemplazar_audio":
+        reemplazar_audio(sys.argv[2])
+    else:
+        main()
