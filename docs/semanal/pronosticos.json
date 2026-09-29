@@ -2,10 +2,22 @@
  {
   "semana": "2026-09-25",
   "items": [
-   "Monitorear la reacción del mercado tras el anuncio de la reforma del Banco Central",
-   "Seguimiento de los indicadores de actividad económica de los Estados Unidos",
-   "Observar el impacto del dato de empleo en la trayectoria de tasas de la Reserva Federal",
-   "Evaluar la licitación de deuda del Tesoro prevista para inicios de octubre"
+   {
+    "tema": "Licitación del Tesoro",
+    "expectativa": "El Gobierno debe lograr una tasa de renovación de vencimientos superior al 100% para evitar presión cambiaria."
+   },
+   {
+    "tema": "Dato de inflación EE. UU.",
+    "expectativa": "La publicación del reporte de inflación determinará si el rendimiento de los bonos del Tesoro supera el 5,1%."
+   },
+   {
+    "tema": "Reservas internacionales",
+    "expectativa": "El Banco Central debe estabilizar el flujo de reservas y revertir la racha de caídas semanales."
+   },
+   {
+    "tema": "Mercados bursátiles",
+    "expectativa": "El Merval necesita recuperar el soporte técnico tras la baja semanal del cinco coma dos por ciento en dólares."
+   }
   ]
  }
 ]
