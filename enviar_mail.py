@@ -41,6 +41,19 @@ def main():
         s.send_message(msg)
     print(f"Mail enviado a {len(destinatarios)} destinatario(s).")
 
+    # Segundo mail, solo para vos: el guion listo para leer y grabar
+    guion = pathlib.Path("salida/guion_lectura.txt")
+    if guion.exists():
+        m2 = EmailMessage()
+        m2["Subject"] = f"Guion para grabar · Resumen semanal {dd}/{mm}/{aa}"
+        m2["From"] = f"Panel Semanal Toros <{usuario}>"
+        m2["To"] = usuario
+        m2.set_content("Guion del resumen semanal, listo para leer y grabar.\n\n" + guion.read_text(encoding="utf-8"))
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl.create_default_context()) as s:
+            s.login(usuario, clave)
+            s.send_message(m2)
+        print("Guion enviado a tu mail.")
+
 
 if __name__ == "__main__":
     main()

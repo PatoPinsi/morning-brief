@@ -391,6 +391,8 @@ Reglas:
     "el dato de la semana", "para cerrar".
   * Empresas por su nombre (Galicia, Pampa, Vista); YPF, el S&P 500 y el Nasdaq se escriben así.
   * Sin símbolos ni markdown; números escritos como se dicen y redondeados.
+  * Porcentajes siempre con UN SOLO decimal (ej. "dos coma cuatro por ciento"), nunca dos.
+  * El crudo estadounidense se nombra "WTI", nunca "West Texas".
   * Dólar: nunca digas la cotización en pesos de ningún tipo de cambio (oficial, mayorista, MEP,
     contado con liqui, blue). Solo cuánto subió o bajó en la semana, en porcentaje.
   Estructura (respetá este orden SIEMPRE; nunca vuelvas a un bloque ya terminado, para no marear
@@ -771,6 +773,9 @@ def main():
     generar_audio(adaptar(guion), CARPETA / f"panel-{f}.mp3")   # voz de respaldo (Tomás)
     pathlib.Path("salida").mkdir(exist_ok=True)
     pathlib.Path("salida/guion.txt").write_text(adaptar(guion), encoding="utf-8")   # para tu voz
+    pathlib.Path("salida/guion_lectura.txt").write_text(
+        "\n\n".join(re.split(r"(?<=[.!?])\s+(?=(?:En el frente|De cara|Como cierre|Les agradecemos|Respecto|El Banco Central))", guion)),
+        encoding="utf-8")   # versión para leer y grabar
     if not c.get("basico"):
         guardar_pronosticos(pronosticos, c.get("proxima_semana", []))
     publicar({"fecha": f, "titulo": f"Resumen Semanal - {HOY.strftime('%d/%m/%Y')}",
