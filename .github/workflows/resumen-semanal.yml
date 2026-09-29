@@ -34,6 +34,7 @@ jobs:
           path: |
             docs/semanal
             salida/guion.txt
+            salida/guion_lectura.txt
 
   # 2) Tu voz: el guion se genera en 8 partes en paralelo
   voz:
