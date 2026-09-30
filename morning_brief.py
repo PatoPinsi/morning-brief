@@ -27,7 +27,8 @@ MODELOS = ["gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.1-flash-lite"]
 USAR_BUSQUEDA = False            # la búsqueda de Google no entra en el plan gratis
 VOZ = "es-AR-TomasNeural"        # alternativa femenina: es-AR-ElenaNeural
 VELOCIDAD = "+8%"                # más rápido o más lento: "+0%", "+15%"
-PALABRAS_OBJETIVO = 1500         # ~9-10 minutos
+PALABRAS_OBJETIVO = 800          # ~5-6 minutos
+PALABRAS_TOPE = 900              # nunca más que esto (~6 minutos)
 
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
@@ -188,8 +189,9 @@ SISTEMA = f"""Sos el conductor de un podcast matinal de mercados para un gerente
 de un agente productor argentino. Hablás en español rioplatense, tono radial, claro y ágil.
 El texto va a ser leído por una voz sintética: NO uses markdown, viñetas, tablas ni símbolos.
 Escribí los números como se dicen ("cero coma ocho por ciento", "mil doscientos puntos básicos").
-Largo: entre {PALABRAS_OBJETIVO} y {PALABRAS_OBJETIVO + 200} palabras, nunca menos. La mitad del
-episodio tiene que ser sobre Argentina. Nunca inventes datos: si algo no lo pudiste
+Largo: entre {PALABRAS_OBJETIVO} y {PALABRAS_TOPE} palabras, NUNCA MÁS de {PALABRAS_TOPE} (el episodio
+dura como máximo 6 minutos). Priorizá: mejor pocos temas bien contados que muchos a las apuradas.
+La mitad del episodio tiene que ser sobre Argentina. Nunca inventes datos: si algo no lo pudiste
 confirmar, decilo o omitilo. Priorizá lo que un asesor financiero necesita saber antes de la rueda."""
 
 PEDIDO = """Hoy es {fecha}. Armá el episodio de hoy.
@@ -218,14 +220,14 @@ Estructura del episodio:
 2. Apertura global: futuros de EE.UU., Asia, Europa, dólar, petróleo, oro, Treasuries.
 3. Lo más importante del mundo.
 4. Argentina, cómo cerró ayer (bloque largo, el más importante del episodio):
-   - Merval y panel líder: nombrá las 3 o 4 acciones que más subieron y las que más bajaron
+   - Merval y panel líder: nombrá las 2 o 3 acciones que más subieron y las que más bajaron
      con su variación, y explicá por qué si los titulares lo permiten.
    - ADRs en Wall Street, destacando los movimientos más fuertes.
    - Bonos soberanos (Bonares y Globales) y riesgo país.
    - Dólar oficial, mayorista, MEP y CCL, y la brecha.
    - Tasas: caución, TAMAR/BADLAR, plazo fijo, Lecaps.
    - BCRA: compras o ventas de dólares y reservas.
-   - Las 3 o 4 noticias locales más importantes (gobierno, economía, empresas, FMI), cada una
+   - Las 2 o 3 noticias locales más importantes (gobierno, economía, empresas, FMI), cada una
      con contexto y por qué le importa al mercado.
 5. Argentina, qué trae hoy: agenda local, datos del INDEC o BCRA, licitaciones, ONs y emisiones,
    y qué esperar para la rueda.
@@ -234,6 +236,23 @@ Estructura del episodio:
    con el mismo estilo: tres puntos concretos y accionables para la jornada.
 
 Devolvé SOLO el guion final entre las etiquetas <guion> y </guion>."""
+
+
+def limitar_guion(guion, tope=PALABRAS_TOPE):
+    """Red de seguridad: si el guion supera el tope, se sacan frases del medio y se conserva el cierre."""
+    frases = [f for f in re.split(r"(?<=[.!?])\s+", guion) if f.strip()]
+    if len(guion.split()) <= tope or len(frases) < 8:
+        return guion
+    cierre = frases[-4:]
+    disponible = tope - sum(len(f.split()) for f in cierre)
+    cuerpo, usadas = [], 0
+    for f in frases[:-4]:
+        if usadas + len(f.split()) > disponible:
+            break
+        cuerpo.append(f)
+        usadas += len(f.split())
+    print(f"Guion recortado de {len(guion.split())} a {usadas + tope - disponible} palabras.")
+    return " ".join(cuerpo + cierre)
 
 
 def escribir_guion(datos, heads):
@@ -315,7 +334,7 @@ def main():
     EPIS.mkdir(parents=True, exist_ok=True)
     datos = datos_duros()
     datos["argentina"] = datos_argentina()
-    guion = escribir_guion(datos, titulares())
+    guion = limitar_guion(escribir_guion(datos, titulares()))
     if len(guion.split()) < 200:
         raise SystemExit("El guion salió vacío o muy corto; no se publica el episodio.")
 
