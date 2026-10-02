@@ -19,5 +19,22 @@
     "expectativa": "El Merval necesita recuperar el soporte técnico tras la baja semanal del cinco coma dos por ciento en dólares."
    }
   ]
+ },
+ {
+  "semana": "2026-10-02",
+  "items": [
+   {
+    "tema": "Agenda legislativa",
+    "expectativa": "El Congreso tratará el paquete de reformas enviado por el Poder Ejecutivo."
+   },
+   {
+    "tema": "Inflación de septiembre",
+    "expectativa": "El INDEC publicará el dato oficial de inflación mensual."
+   },
+   {
+    "tema": "Indicadores de empleo en EE. UU.",
+    "expectativa": "Se conocerá el reporte de empleo oficial que definirá la expectativa de tasas de la Reserva Federal."
+   }
+  ]
  }
 ]
