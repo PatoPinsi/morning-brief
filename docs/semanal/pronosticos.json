@@ -36,5 +36,26 @@
     "expectativa": "Se conocerá el reporte de empleo oficial que definirá la expectativa de tasas de la Reserva Federal."
    }
   ]
+ },
+ {
+  "semana": "2026-10-09",
+  "items": [
+   {
+    "tema": "Inflación oficial de septiembre",
+    "expectativa": "El INDEC publicará el dato del índice de precios al consumidor del mes pasado."
+   },
+   {
+    "tema": "Licitación de deuda del Tesoro",
+    "expectativa": "La Secretaría de Finanzas enfrentará vencimientos clave de títulos en pesos."
+   },
+   {
+    "tema": "IPC de Estados Unidos",
+    "expectativa": "Se publicará el dato de inflación minorista norteamericano correspondiente a septiembre."
+   },
+   {
+    "tema": "Balances corporativos en Wall Street",
+    "expectativa": "Los principales bancos estadounidenses iniciarán la temporada de resultados del tercer trimestre."
+   }
+  ]
  }
 ]
