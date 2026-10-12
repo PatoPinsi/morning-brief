@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 import feedparser
-import edge_tts
+from voz import generar_audio as _generar_audio
 from google import genai
 from google.genai import types
 from PIL import Image, ImageDraw, ImageFont
@@ -703,7 +703,8 @@ def guardar_pronosticos(lista, items):
 
 
 def generar_audio(guion, destino):
-    asyncio.run(edge_tts.Communicate(guion, VOZ, rate=VELOCIDAD).save(str(destino)))
+    # edge-tts primero; si Microsoft lo bloquea, Gemini TTS y después gTTS (ver voz.py)
+    _generar_audio(guion, destino, VOZ, VELOCIDAD)
 
 
 def publicar(ed):

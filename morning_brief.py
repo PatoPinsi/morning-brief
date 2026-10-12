@@ -11,7 +11,7 @@ from zoneinfo import ZoneInfo
 
 import requests
 import feedparser
-import edge_tts
+from voz import generar_audio as _generar_audio
 from google import genai
 from google.genai import types
 
@@ -286,9 +286,10 @@ def escribir_guion(datos, heads):
     return re.sub(r"[*#_`>]", "", guion)
 
 
-# ---------------- 4. Audio con edge-tts ----------------
+# ---------------- 4. Audio (edge-tts con respaldo) ----------------
 def generar_audio(guion, destino):
-    asyncio.run(edge_tts.Communicate(guion, VOZ, rate=VELOCIDAD).save(str(destino)))
+    # edge-tts primero; si Microsoft lo bloquea, Gemini TTS y después gTTS (ver voz.py)
+    _generar_audio(guion, destino, VOZ, VELOCIDAD)
 
 
 # ---------------- 5. Feed RSS ----------------
