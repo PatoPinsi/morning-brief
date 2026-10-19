@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-10-19.mp3",
+  "titulo": "Morning Brief - Lunes 19 de octubre de 2026",
+  "resumen": "Muy buenos días a todos. Hoy es lunes diecinueve de octubre de dos mil veintiséis y arranca una semana clave para los mercados. Tres títulos para abrir la mañana. Primero, Wall Street amanece con optimismo de la mano de las tecnológicas antes de una seguidilla intensa de balances trimestrales. Segun...",
+  "bytes": 1699056,
+  "fecha_rfc": "Mon, 19 Oct 2026 07:24:57 -0300",
+  "duracion": "05:53"
+ },
+ {
   "archivo": "brief-2026-10-16.mp3",
   "titulo": "Morning Brief - Viernes 16 de octubre de 2026",
   "resumen": "Muy buenos días a todos. Hoy es viernes dieciséis de octubre de dos mil veintiséis y este es el panorama financiero para encarar la rueda bien informados antes de la apertura. Arrancamos con los tres titulares clave de esta mañana. Primero, las reservas brutas del Banco Central volvieron a quebrar l...",
@@ -110,13 +118,5 @@
   "bytes": 2191824,
   "fecha_rfc": "Mon, 28 Sep 2026 07:08:59 -0300",
   "duracion": "07:37"
- },
- {
-  "archivo": "brief-2026-09-25.mp3",
-  "titulo": "Morning Brief - Viernes 25 de septiembre de 2026",
-  "resumen": "Muy buenos días a todos. Es viernes veinticinco de septiembre de dos mil veintiséis, arrancamos una nueva jornada de mercado y acá te preparé el resumen que necesitás para tener toda la claridad antes de que suene la campana. Los tres titulares que marcan el pulso de hoy son: primero, la presión sob...",
-  "bytes": 2168496,
-  "fecha_rfc": "Fri, 25 Sep 2026 10:32:35 -0300",
-  "duracion": "07:47"
  }
 ]

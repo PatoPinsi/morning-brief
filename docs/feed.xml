@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Lunes 19 de octubre de 2026</title>
+    <description>Muy buenos días a todos. Hoy es lunes diecinueve de octubre de dos mil veintiséis y arranca una semana clave para los mercados. Tres títulos para abrir la mañana. Primero, Wall Street amanece con optimismo de la mano de las tecnológicas antes de una seguidilla intensa de balances trimestrales. Segun...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-19.mp3" length="1699056" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-19.mp3</guid>
+    <pubDate>Mon, 19 Oct 2026 07:24:57 -0300</pubDate>
+    <itunes:duration>05:53</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Viernes 16 de octubre de 2026</title>
     <description>Muy buenos días a todos. Hoy es viernes dieciséis de octubre de dos mil veintiséis y este es el panorama financiero para encarar la rueda bien informados antes de la apertura. Arrancamos con los tres titulares clave de esta mañana. Primero, las reservas brutas del Banco Central volvieron a quebrar l...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-16.mp3" length="1732032" type="audio/mpeg"/>
@@ -120,14 +128,6 @@ Arrancamos con los tres títulos clave que marcan el pulso de esta mañana. ...<
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-09-28.mp3</guid>
     <pubDate>Mon, 28 Sep 2026 07:08:59 -0300</pubDate>
     <itunes:duration>07:37</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Viernes 25 de septiembre de 2026</title>
-    <description>Muy buenos días a todos. Es viernes veinticinco de septiembre de dos mil veintiséis, arrancamos una nueva jornada de mercado y acá te preparé el resumen que necesitás para tener toda la claridad antes de que suene la campana. Los tres titulares que marcan el pulso de hoy son: primero, la presión sob...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-09-25.mp3" length="2168496" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-09-25.mp3</guid>
-    <pubDate>Fri, 25 Sep 2026 10:32:35 -0300</pubDate>
-    <itunes:duration>07:47</itunes:duration>
   </item>
 </channel>
 </rss>
