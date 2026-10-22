@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-10-22.mp3",
+  "titulo": "Morning Brief - Jueves 22 de octubre de 2026",
+  "resumen": "¡Buenos días a todos! Hoy es jueves veintidós de octubre de dos mil veintiséis. Soy su anfitrión en este resumen matinal de mercados para asesores e inversores. Titulares del día: la economía argentina mostró signos de estancamiento en agosto con una caída interanual del uno coma siete por ciento; e...",
+  "bytes": 1690704,
+  "fecha_rfc": "Thu, 22 Oct 2026 07:24:47 -0300",
+  "duracion": "05:56"
+ },
+ {
   "archivo": "brief-2026-10-21.mp3",
   "titulo": "Morning Brief - Miércoles 21 de octubre de 2026",
   "resumen": "Muy buenos días a todos. Hoy es miércoles veintiuno de octubre de dos mil veintiséis y este es el panorama financiero que necesitás para arrancar la rueda bien informado. Tres cosas para saber antes de que abra el mercado: primero, el riesgo país rozó los setecientos diez puntos básicos pero logró r...",
@@ -110,13 +118,5 @@
   "bytes": 1695312,
   "fecha_rfc": "Thu, 01 Oct 2026 07:10:07 -0300",
   "duracion": "05:52"
- },
- {
-  "archivo": "brief-2026-09-30.mp3",
-  "titulo": "Morning Brief - Miércoles 30 de septiembre de 2026",
-  "resumen": "Muy buenos días a todos. Cómo están. Bienvenidos a un nuevo episodio de nuestro resumen matinal de mercados, pensado especialmente para arrancar la jornada con toda la información clave para tus decisiones financieras. Hoy es miércoles treinta de septiembre de dos mil veintiséis. Para empezar el día...",
-  "bytes": 1690848,
-  "fecha_rfc": "Wed, 30 Sep 2026 08:23:14 -0300",
-  "duracion": "05:58"
  }
 ]
