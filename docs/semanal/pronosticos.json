@@ -74,5 +74,22 @@
     "expectativa": "Se publicarán datos de PMI y confianza del consumidor en Estados Unidos."
    }
   ]
+ },
+ {
+  "semana": "2026-10-23",
+  "items": [
+   {
+    "tema": "Licitaciones del Tesoro",
+    "expectativa": "Se espera la resolución de los vencimientos financieros tras el reciente canje de deuda."
+   },
+   {
+    "tema": "Resultados trimestrales globales",
+    "expectativa": "Reportarán empresas como Microsoft, Alphabet y Amazon."
+   },
+   {
+    "tema": "Política monetaria",
+    "expectativa": "Se monitoreará el impacto de los datos de inflación en las expectativas del mercado."
+   }
+  ]
  }
 ]
