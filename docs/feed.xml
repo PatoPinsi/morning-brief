@@ -8,6 +8,16 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Viernes 23 de octubre de 2026</title>
+    <description>Muy buenos días a todos. Hoy es viernes veintitrés de octubre de dos mil veintiséis y este es el resumen financiero para arrancar la rueda bien informados.
+
+Los tres temas claves para hoy: primero, nuevo sacudón global por dudas sobre las inversiones en inteligencia artificial; segundo, los activos ...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-23.mp3" length="1749312" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-23.mp3</guid>
+    <pubDate>Fri, 23 Oct 2026 07:22:32 -0300</pubDate>
+    <itunes:duration>05:55</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Jueves 22 de octubre de 2026</title>
     <description>¡Buenos días a todos! Hoy es jueves veintidós de octubre de dos mil veintiséis. Soy su anfitrión en este resumen matinal de mercados para asesores e inversores. Titulares del día: la economía argentina mostró signos de estancamiento en agosto con una caída interanual del uno coma siete por ciento; e...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-22.mp3" length="1690704" type="audio/mpeg"/>
@@ -118,14 +128,6 @@
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-02.mp3</guid>
     <pubDate>Fri, 02 Oct 2026 07:07:29 -0300</pubDate>
     <itunes:duration>05:47</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Jueves 1 de octubre de 2026</title>
-    <description>Muy buenos días a todos. Hoy es jueves primero de octubre de dos mil veintiséis y este es el panorama matinal para encarar la rueda con la información justa. Para arrancar, los tres temas clave de la mañana: primero, Wall Street abre dispar con los futuros tecnológicos empujando y el crudo Brent per...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-01.mp3" length="1695312" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-01.mp3</guid>
-    <pubDate>Thu, 01 Oct 2026 07:10:07 -0300</pubDate>
-    <itunes:duration>05:52</itunes:duration>
   </item>
 </channel>
 </rss>
