@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-10-28.mp3",
+  "titulo": "Morning Brief - Miércoles 28 de octubre de 2026",
+  "resumen": "Muy buenos días a todos. Hoy es miércoles veintiocho de octubre de dos mil veintiséis y este es el resumen financiero para encarar la jornada bien informados. Tres temas clave para arrancar el día: primero, supermiércoles en Wall Street con la decisión de tasas de la Reserva Federal y balances gigan...",
+  "bytes": 1718496,
+  "fecha_rfc": "Wed, 28 Oct 2026 13:24:33 -0300",
+  "duracion": "05:53"
+ },
+ {
   "archivo": "brief-2026-10-27.mp3",
   "titulo": "Morning Brief - Martes 27 de octubre de 2026",
   "resumen": "<guion\nBuen día. Es martes veintisiete de octubre de dos mil veintiséis. Arrancamos este podcast de mercados con tres titulares clave. Primero, el mercado local digiere el impacto del efecto Brasil tras la reelección de Lula. Segundo, el Banco Central interviene vendiendo reservas para contener la v...",
@@ -110,13 +118,5 @@
   "bytes": 1647648,
   "fecha_rfc": "Wed, 07 Oct 2026 07:09:55 -0300",
   "duracion": "05:56"
- },
- {
-  "archivo": "brief-2026-10-06.mp3",
-  "titulo": "Morning Brief - Martes 6 de octubre de 2026",
-  "resumen": "Muy buen día para todos. Hoy es martes seis de octubre de dos mil veintiséis y arrancamos con el pecho inflado tras una rueda de ayer histórica. Para empezar la mañana, les dejo los tres titulares clave del día. Primero, el efecto Brasil y la victoria electoral de Flávio Bolsonaro desataron una eufo...",
-  "bytes": 1651536,
-  "fecha_rfc": "Tue, 06 Oct 2026 08:12:20 -0300",
-  "duracion": "05:44"
  }
 ]
