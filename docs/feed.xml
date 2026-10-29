@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Jueves 29 de octubre de 2026</title>
+    <description>Hola, muy buenos días a todos. Hoy es jueves veintinueve de octubre de dos mil veintiséis y este es el panorama financiero para arrancar la rueda bien informados. Los tres titulares del día: primero, las tecnológicas arrastran a Wall Street tras el desplome de Alphabet por dudas en la rentabilidad d...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-29.mp3" length="1639872" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-29.mp3</guid>
+    <pubDate>Thu, 29 Oct 2026 13:33:29 -0300</pubDate>
+    <itunes:duration>05:53</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Miércoles 28 de octubre de 2026</title>
     <description>Muy buenos días a todos. Hoy es miércoles veintiocho de octubre de dos mil veintiséis y este es el resumen financiero para encarar la jornada bien informados. Tres temas clave para arrancar el día: primero, supermiércoles en Wall Street con la decisión de tasas de la Reserva Federal y balances gigan...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-28.mp3" length="1718496" type="audio/mpeg"/>
@@ -121,14 +129,6 @@ Los tres temas claves para hoy: primero, nuevo sacudón global por dudas sobre l
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-08.mp3</guid>
     <pubDate>Thu, 08 Oct 2026 07:10:29 -0300</pubDate>
     <itunes:duration>05:58</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Miércoles 7 de octubre de 2026</title>
-    <description>Buen día, buen miércoles para todos. Hoy es siete de octubre de dos mil veintiséis y arranca otra jornada clave para asesorar a tus clientes. Tres títulos rápidos para empezar la mañana: el riesgo país argentino sigue de racha y cerró en quinientos setenta y tres puntos; las empresas y provincias ar...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-07.mp3" length="1647648" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-07.mp3</guid>
-    <pubDate>Wed, 07 Oct 2026 07:09:55 -0300</pubDate>
-    <itunes:duration>05:56</itunes:duration>
   </item>
 </channel>
 </rss>

@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-10-29.mp3",
+  "titulo": "Morning Brief - Jueves 29 de octubre de 2026",
+  "resumen": "Hola, muy buenos días a todos. Hoy es jueves veintinueve de octubre de dos mil veintiséis y este es el panorama financiero para arrancar la rueda bien informados. Los tres titulares del día: primero, las tecnológicas arrastran a Wall Street tras el desplome de Alphabet por dudas en la rentabilidad d...",
+  "bytes": 1639872,
+  "fecha_rfc": "Thu, 29 Oct 2026 13:33:29 -0300",
+  "duracion": "05:53"
+ },
+ {
   "archivo": "brief-2026-10-28.mp3",
   "titulo": "Morning Brief - Miércoles 28 de octubre de 2026",
   "resumen": "Muy buenos días a todos. Hoy es miércoles veintiocho de octubre de dos mil veintiséis y este es el resumen financiero para encarar la jornada bien informados. Tres temas clave para arrancar el día: primero, supermiércoles en Wall Street con la decisión de tasas de la Reserva Federal y balances gigan...",
@@ -110,13 +118,5 @@
   "bytes": 1669824,
   "fecha_rfc": "Thu, 08 Oct 2026 07:10:29 -0300",
   "duracion": "05:58"
- },
- {
-  "archivo": "brief-2026-10-07.mp3",
-  "titulo": "Morning Brief - Miércoles 7 de octubre de 2026",
-  "resumen": "Buen día, buen miércoles para todos. Hoy es siete de octubre de dos mil veintiséis y arranca otra jornada clave para asesorar a tus clientes. Tres títulos rápidos para empezar la mañana: el riesgo país argentino sigue de racha y cerró en quinientos setenta y tres puntos; las empresas y provincias ar...",
-  "bytes": 1647648,
-  "fecha_rfc": "Wed, 07 Oct 2026 07:09:55 -0300",
-  "duracion": "05:56"
  }
 ]
