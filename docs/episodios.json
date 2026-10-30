@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-10-30.mp3",
+  "titulo": "Morning Brief - Viernes 30 de octubre de 2026",
+  "resumen": "Buen día para todos. Es viernes treinta de octubre de dos mil veintiséis, arranca el último día de la semana y acá te traigo lo que tenés que saber antes de que suene la campana. Hoy los titulares son tres. Primero, el desplome tecnológico en Wall Street liderado por Intel y Amazon que golpea el áni...",
+  "bytes": 1405152,
+  "fecha_rfc": "Fri, 30 Oct 2026 13:28:21 -0300",
+  "duracion": "04:42"
+ },
+ {
   "archivo": "brief-2026-10-29.mp3",
   "titulo": "Morning Brief - Jueves 29 de octubre de 2026",
   "resumen": "Hola, muy buenos días a todos. Hoy es jueves veintinueve de octubre de dos mil veintiséis y este es el panorama financiero para arrancar la rueda bien informados. Los tres titulares del día: primero, las tecnológicas arrastran a Wall Street tras el desplome de Alphabet por dudas en la rentabilidad d...",
@@ -110,13 +118,5 @@
   "bytes": 1628496,
   "fecha_rfc": "Fri, 09 Oct 2026 07:09:57 -0300",
   "duracion": "05:49"
- },
- {
-  "archivo": "brief-2026-10-08.mp3",
-  "titulo": "Morning Brief - Jueves 8 de octubre de 2026",
-  "resumen": "Muy buenos días para todos. Hoy es jueves ocho de octubre de dos mil veintiséis. Bienvenidos a este resumen matinal de mercados para arrancar el día bien informados. Hoy abrimos con tres titulares clave para tu mesa de dinero. Primero, se desinfla el efecto Brasil, el riesgo país subió y vuelve a ac...",
-  "bytes": 1669824,
-  "fecha_rfc": "Thu, 08 Oct 2026 07:10:29 -0300",
-  "duracion": "05:58"
  }
 ]
