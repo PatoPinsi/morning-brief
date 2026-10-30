@@ -91,5 +91,26 @@
     "expectativa": "Se monitoreará el impacto de los datos de inflación en las expectativas del mercado."
    }
   ]
+ },
+ {
+  "semana": "2026-10-30",
+  "items": [
+   {
+    "tema": "Resultados trimestrales locales",
+    "expectativa": "Monitoreo de balances de empresas energéticas y bancarias argentinas para el tercer trimestre."
+   },
+   {
+    "tema": "Dinámica de compras del Banco Central",
+    "expectativa": "Seguimiento de las intervenciones del Banco Central en el mercado cambiario y su impacto en reservas."
+   },
+   {
+    "tema": "Elecciones de medio término en Estados Unidos",
+    "expectativa": "Evaluación del impacto de los comicios legislativos norteamericanos sobre el humor de Wall Street."
+   },
+   {
+    "tema": "Reportes corporativos internacionales",
+    "expectativa": "Publicación de resultados financieros de firmas líderes como Apple y AMD."
+   }
+  ]
  }
 ]
