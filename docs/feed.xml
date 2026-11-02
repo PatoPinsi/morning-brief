@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Lunes 2 de noviembre de 2026</title>
+    <description>Muy buenos días a todos. Hoy es lunes dos de noviembre de dos mil veintiséis y este es el panorama financiero para encarar la apertura de la semana con información precisa. Arrancamos con los tres títulos clave del día. Primero, desplome internacional del petróleo que arrastra al sector energético g...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-02.mp3" length="1658016" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-02.mp3</guid>
+    <pubDate>Mon, 02 Nov 2026 16:57:05 -0300</pubDate>
+    <itunes:duration>05:51</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Viernes 30 de octubre de 2026</title>
     <description>Buen día para todos. Es viernes treinta de octubre de dos mil veintiséis, arranca el último día de la semana y acá te traigo lo que tenés que saber antes de que suene la campana. Hoy los titulares son tres. Primero, el desplome tecnológico en Wall Street liderado por Intel y Amazon que golpea el áni...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-30.mp3" length="1405152" type="audio/mpeg"/>
@@ -121,14 +129,6 @@ Los tres temas claves para hoy: primero, nuevo sacudón global por dudas sobre l
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-13.mp3</guid>
     <pubDate>Tue, 13 Oct 2026 07:20:55 -0300</pubDate>
     <itunes:duration>05:58</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Viernes 9 de octubre de 2026</title>
-    <description>Buen día para todos. Hoy es viernes nueve de octubre de dos mil veintiséis y arranca una nueva jornada de mercados en este podcast matinal pensado para que salgas a la cancha con la información justa para tu cartera de clientes. Hoy abrimos con tres titulares clave para encarar el día. Primero, AySA...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-09.mp3" length="1628496" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-09.mp3</guid>
-    <pubDate>Fri, 09 Oct 2026 07:09:57 -0300</pubDate>
-    <itunes:duration>05:49</itunes:duration>
   </item>
 </channel>
 </rss>
