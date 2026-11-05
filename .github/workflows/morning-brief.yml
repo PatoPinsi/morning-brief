@@ -2,7 +2,7 @@ name: Morning brief
 
 on:
   schedule:
-    - cron: "0 10 * * 1-5"
+    - cron: "15 10 * * 1-5"  # 7:15 Buenos Aires (UTC-3)
   workflow_dispatch:
 
 permissions:
