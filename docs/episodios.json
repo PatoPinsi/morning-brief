@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-11-06.mp3",
+  "titulo": "Morning Brief - Viernes 6 de noviembre de 2026",
+  "resumen": "¡Muy buenos días a todos! Hoy es viernes seis de noviembre de dos mil veintiséis. Soy su anfitrión y esto es el resumen de mercados para la mesa de operaciones. Tres temas clave para arrancar la jornada: primero, el riesgo país argentino rozó los novecientos veinticinco puntos básicos en el pico de ...",
+  "bytes": 1631952,
+  "fecha_rfc": "Fri, 06 Nov 2026 14:29:50 -0300",
+  "duracion": "05:55"
+ },
+ {
   "archivo": "brief-2026-11-05.mp3",
   "titulo": "Morning Brief - Jueves 5 de noviembre de 2026",
   "resumen": "Muy buenos días a todos. Hoy es jueves cinco de noviembre de dos mil veintiséis y este es el resumen financiero para encarar la rueda con la información justa antes de que abra el mercado. Tres titulares para arrancar el día. Primero, sacudón en los activos argentinos: cayeron los bonos soberanos y ...",
@@ -110,13 +118,5 @@
   "bytes": 1732032,
   "fecha_rfc": "Fri, 16 Oct 2026 07:21:55 -0300",
   "duracion": "05:57"
- },
- {
-  "archivo": "brief-2026-10-15.mp3",
-  "titulo": "Morning Brief - Jueves 15 de octubre de 2026",
-  "resumen": "Muy buenos días a todos. Hoy es jueves quince de octubre de dos mil veintiséis y este es el panorama financiero para arrancar la jornada bien informados. Tres titulares para abrir el día. Primero, la inflación en Estados Unidos volvió a acelerarse y sacudió a los mercados globales. Segundo, los bono...",
-  "bytes": 1730016,
-  "fecha_rfc": "Thu, 15 Oct 2026 07:21:15 -0300",
-  "duracion": "05:58"
  }
 ]
