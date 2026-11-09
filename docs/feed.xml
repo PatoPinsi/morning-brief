@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Lunes 9 de noviembre de 2026</title>
+    <description>Muy buenos días. Hoy es lunes nueve de noviembre de dos mil veintiséis. Arrancamos la semana con los tres temas del día: primero, fuerte rebote en los futuros de Wall Street que ignoran el ruido corporativo; segundo, el petróleo se derrumba casi seis por ciento tras el aumento de oferta de la OPEP; ...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-09.mp3" length="1669536" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-09.mp3</guid>
+    <pubDate>Mon, 09 Nov 2026 17:43:56 -0300</pubDate>
+    <itunes:duration>05:54</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Viernes 6 de noviembre de 2026</title>
     <description>¡Muy buenos días a todos! Hoy es viernes seis de noviembre de dos mil veintiséis. Soy su anfitrión y esto es el resumen de mercados para la mesa de operaciones. Tres temas clave para arrancar la jornada: primero, el riesgo país argentino rozó los novecientos veinticinco puntos básicos en el pico de ...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-06.mp3" length="1631952" type="audio/mpeg"/>
@@ -121,14 +129,6 @@ Los tres temas claves para hoy: primero, nuevo sacudón global por dudas sobre l
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-19.mp3</guid>
     <pubDate>Mon, 19 Oct 2026 07:24:57 -0300</pubDate>
     <itunes:duration>05:53</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Viernes 16 de octubre de 2026</title>
-    <description>Muy buenos días a todos. Hoy es viernes dieciséis de octubre de dos mil veintiséis y este es el panorama financiero para encarar la rueda bien informados antes de la apertura. Arrancamos con los tres titulares clave de esta mañana. Primero, las reservas brutas del Banco Central volvieron a quebrar l...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-16.mp3" length="1732032" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-16.mp3</guid>
-    <pubDate>Fri, 16 Oct 2026 07:21:55 -0300</pubDate>
-    <itunes:duration>05:57</itunes:duration>
   </item>
 </channel>
 </rss>
