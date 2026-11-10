@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Martes 10 de noviembre de 2026</title>
+    <description>Buen día para todos. Es martes diez de noviembre de dos mil veintiséis. Arrancamos este podcast de mercados con tres títulos clave. Primero, Wall Street muestra nerviosismo con caídas en los futuros tras conocerse datos de inflación en Estados Unidos. Segundo, la tasa de los bonos del tesoro a diez ...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-10.mp3" length="1373904" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-10.mp3</guid>
+    <pubDate>Tue, 10 Nov 2026 14:50:33 -0300</pubDate>
+    <itunes:duration>04:46</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Lunes 9 de noviembre de 2026</title>
     <description>Muy buenos días. Hoy es lunes nueve de noviembre de dos mil veintiséis. Arrancamos la semana con los tres temas del día: primero, fuerte rebote en los futuros de Wall Street que ignoran el ruido corporativo; segundo, el petróleo se derrumba casi seis por ciento tras el aumento de oferta de la OPEP; ...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-09.mp3" length="1669536" type="audio/mpeg"/>
@@ -121,14 +129,6 @@ Los tres temas claves para hoy: primero, nuevo sacudón global por dudas sobre l
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-20.mp3</guid>
     <pubDate>Tue, 20 Oct 2026 07:19:20 -0300</pubDate>
     <itunes:duration>05:51</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Lunes 19 de octubre de 2026</title>
-    <description>Muy buenos días a todos. Hoy es lunes diecinueve de octubre de dos mil veintiséis y arranca una semana clave para los mercados. Tres títulos para abrir la mañana. Primero, Wall Street amanece con optimismo de la mano de las tecnológicas antes de una seguidilla intensa de balances trimestrales. Segun...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-19.mp3" length="1699056" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-19.mp3</guid>
-    <pubDate>Mon, 19 Oct 2026 07:24:57 -0300</pubDate>
-    <itunes:duration>05:53</itunes:duration>
   </item>
 </channel>
 </rss>

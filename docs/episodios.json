@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-11-10.mp3",
+  "titulo": "Morning Brief - Martes 10 de noviembre de 2026",
+  "resumen": "Buen día para todos. Es martes diez de noviembre de dos mil veintiséis. Arrancamos este podcast de mercados con tres títulos clave. Primero, Wall Street muestra nerviosismo con caídas en los futuros tras conocerse datos de inflación en Estados Unidos. Segundo, la tasa de los bonos del tesoro a diez ...",
+  "bytes": 1373904,
+  "fecha_rfc": "Tue, 10 Nov 2026 14:50:33 -0300",
+  "duracion": "04:46"
+ },
+ {
   "archivo": "brief-2026-11-09.mp3",
   "titulo": "Morning Brief - Lunes 9 de noviembre de 2026",
   "resumen": "Muy buenos días. Hoy es lunes nueve de noviembre de dos mil veintiséis. Arrancamos la semana con los tres temas del día: primero, fuerte rebote en los futuros de Wall Street que ignoran el ruido corporativo; segundo, el petróleo se derrumba casi seis por ciento tras el aumento de oferta de la OPEP; ...",
@@ -110,13 +118,5 @@
   "bytes": 1627488,
   "fecha_rfc": "Tue, 20 Oct 2026 07:19:20 -0300",
   "duracion": "05:51"
- },
- {
-  "archivo": "brief-2026-10-19.mp3",
-  "titulo": "Morning Brief - Lunes 19 de octubre de 2026",
-  "resumen": "Muy buenos días a todos. Hoy es lunes diecinueve de octubre de dos mil veintiséis y arranca una semana clave para los mercados. Tres títulos para abrir la mañana. Primero, Wall Street amanece con optimismo de la mano de las tecnológicas antes de una seguidilla intensa de balances trimestrales. Segun...",
-  "bytes": 1699056,
-  "fecha_rfc": "Mon, 19 Oct 2026 07:24:57 -0300",
-  "duracion": "05:53"
  }
 ]
