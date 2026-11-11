@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Miércoles 11 de noviembre de 2026</title>
+    <description>Muy buenos días a todos. Miércoles once de noviembre de dos mil veintiséis. Bienvenidos a una nueva emisión de nuestro podcast matinal de mercados, diseñado para asesores financieros y gerentes comerciales. Hoy arrancamos la mañana con tres titulares indispensables para encarar la rueda. Primero, lo...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-11.mp3" length="1637136" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-11.mp3</guid>
+    <pubDate>Wed, 11 Nov 2026 14:53:59 -0300</pubDate>
+    <itunes:duration>05:43</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Martes 10 de noviembre de 2026</title>
     <description>Buen día para todos. Es martes diez de noviembre de dos mil veintiséis. Arrancamos este podcast de mercados con tres títulos clave. Primero, Wall Street muestra nerviosismo con caídas en los futuros tras conocerse datos de inflación en Estados Unidos. Segundo, la tasa de los bonos del tesoro a diez ...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-10.mp3" length="1373904" type="audio/mpeg"/>
@@ -121,14 +129,6 @@ Los tres temas claves para hoy: primero, nuevo sacudón global por dudas sobre l
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-21.mp3</guid>
     <pubDate>Wed, 21 Oct 2026 07:23:08 -0300</pubDate>
     <itunes:duration>05:53</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Martes 20 de octubre de 2026</title>
-    <description>Muy buenos días a todos. Hoy es martes veinte de octubre de dos mil veintiséis. Arrancamos una nueva jornada de mercado con tres claves centrales para tener en el radar antes de que empiece la rueda: primero, el debut del nuevo índice MSCI Merval en una rueda donde los bonos soberanos retrocedieron ...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-20.mp3" length="1627488" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-20.mp3</guid>
-    <pubDate>Tue, 20 Oct 2026 07:19:20 -0300</pubDate>
-    <itunes:duration>05:51</itunes:duration>
   </item>
 </channel>
 </rss>
