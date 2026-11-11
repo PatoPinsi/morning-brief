@@ -333,6 +333,11 @@ def actualizar_feed(nuevo):
 # ---------------- Main ----------------
 def main():
     EPIS.mkdir(parents=True, exist_ok=True)
+    # Puede correr dos veces el mismo día (disparo de las 7 + horario de GitHub,
+    # que llega con horas de atraso): si el episodio de hoy ya está, no se pisa.
+    if (EPIS / f"brief-{AHORA:%Y-%m-%d}.mp3").exists() and not os.environ.get("FORZAR"):
+        print("El episodio de hoy ya está publicado; no se vuelve a generar.")
+        return
     datos = datos_duros()
     datos["argentina"] = datos_argentina()
     guion = limitar_guion(escribir_guion(datos, titulares()))
