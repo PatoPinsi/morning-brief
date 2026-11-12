@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-11-12.mp3",
+  "titulo": "Morning Brief - Jueves 12 de noviembre de 2026",
+  "resumen": "Buen día a todos. Hoy es jueves doce de noviembre de dos mil veintiséis. Arrancamos este podcast matinal de mercados con los tres titulares clave del día. En primer lugar, el Tesoro argentino inyectó un billón setecientos mil millones de pesos al mercado tras su última licitación de deuda. En segund...",
+  "bytes": 1581984,
+  "fecha_rfc": "Thu, 12 Nov 2026 06:48:36 -0300",
+  "duracion": "05:43"
+ },
+ {
   "archivo": "brief-2026-11-11.mp3",
   "titulo": "Morning Brief - Miércoles 11 de noviembre de 2026",
   "resumen": "Muy buenos días a todos. Miércoles once de noviembre de dos mil veintiséis. Bienvenidos a una nueva emisión de nuestro podcast matinal de mercados, diseñado para asesores financieros y gerentes comerciales. Hoy arrancamos la mañana con tres titulares indispensables para encarar la rueda. Primero, lo...",
@@ -110,13 +118,5 @@
   "bytes": 1690704,
   "fecha_rfc": "Thu, 22 Oct 2026 07:24:47 -0300",
   "duracion": "05:56"
- },
- {
-  "archivo": "brief-2026-10-21.mp3",
-  "titulo": "Morning Brief - Miércoles 21 de octubre de 2026",
-  "resumen": "Muy buenos días a todos. Hoy es miércoles veintiuno de octubre de dos mil veintiséis y este es el panorama financiero que necesitás para arrancar la rueda bien informado. Tres cosas para saber antes de que abra el mercado: primero, el riesgo país rozó los setecientos diez puntos básicos pero logró r...",
-  "bytes": 1698192,
-  "fecha_rfc": "Wed, 21 Oct 2026 07:23:08 -0300",
-  "duracion": "05:53"
  }
 ]
