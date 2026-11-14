@@ -133,5 +133,22 @@
     "expectativa": "Impacto de los registros de precios y las comunicaciones de la Reserva Federal sobre los rendimientos globales."
    }
   ]
+ },
+ {
+  "semana": "2026-11-13",
+  "items": [
+   {
+    "tema": "Evolución de la liquidez en pesos",
+    "expectativa": "Monitoreo del impacto de los fondos inyectados por el Tesoro sobre las tasas de mercado y tipos de cambio."
+   },
+   {
+    "tema": "Dinámica de reservas internacionales",
+    "expectativa": "Capacidad del Banco Central para sostener el saldo comprador en el mercado de cambios."
+   },
+   {
+    "tema": "Minutas de la Reserva Federal",
+    "expectativa": "Publicación de las actas de la Fed para evaluar la trayectoria de las tasas de interés globales."
+   }
+  ]
  }
 ]
