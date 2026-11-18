@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-11-18.mp3",
+  "titulo": "Morning Brief - Miércoles 18 de noviembre de 2026",
+  "resumen": "Muy buenos días a todos. Hoy es miércoles dieciocho de noviembre de dos mil veintiséis y este es el resumen financiero para arrancar la jornada bien informados. Tres datos clave para empezar hoy: Nvidia salva el clima global tras presentar balances mejores a lo esperado, las acciones argentinas resi...",
+  "bytes": 1656864,
+  "fecha_rfc": "Wed, 18 Nov 2026 06:49:22 -0300",
+  "duracion": "05:50"
+ },
+ {
   "archivo": "brief-2026-11-17.mp3",
   "titulo": "Morning Brief - Martes 17 de noviembre de 2026",
   "resumen": "Muy buenos días. Hoy es martes diecisiete de noviembre de dos mil veintiséis. Arrancamos con los tres títulos clave antes de la apertura. Primero, lunes negro para los activos locales: las acciones cayeron hasta siete por ciento y el riesgo país volvió a quebrar los ochocientos cincuenta puntos bási...",
@@ -110,13 +118,5 @@
   "bytes": 1718496,
   "fecha_rfc": "Wed, 28 Oct 2026 13:24:33 -0300",
   "duracion": "05:53"
- },
- {
-  "archivo": "brief-2026-10-27.mp3",
-  "titulo": "Morning Brief - Martes 27 de octubre de 2026",
-  "resumen": "<guion\nBuen día. Es martes veintisiete de octubre de dos mil veintiséis. Arrancamos este podcast de mercados con tres titulares clave. Primero, el mercado local digiere el impacto del efecto Brasil tras la reelección de Lula. Segundo, el Banco Central interviene vendiendo reservas para contener la v...",
-  "bytes": 1510704,
-  "fecha_rfc": "Tue, 27 Oct 2026 12:40:46 -0300",
-  "duracion": "05:07"
  }
 ]
