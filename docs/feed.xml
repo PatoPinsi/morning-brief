@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Jueves 19 de noviembre de 2026</title>
+    <description>Muy buenos días a todos. Hoy es jueves diecinueve de noviembre de dos mil veintiséis y este es el panorama financiero que necesitás para arrancar la rueda bien informado. Tres titulares marcan la agenda de esta mañana. Primero, Wall Street se ilusiona con la tecnología y los futuros del Nasdaq salta...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-19.mp3" length="1723824" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-19.mp3</guid>
+    <pubDate>Thu, 19 Nov 2026 06:48:53 -0300</pubDate>
+    <itunes:duration>05:52</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Miércoles 18 de noviembre de 2026</title>
     <description>Muy buenos días a todos. Hoy es miércoles dieciocho de noviembre de dos mil veintiséis y este es el resumen financiero para arrancar la jornada bien informados. Tres datos clave para empezar hoy: Nvidia salva el clima global tras presentar balances mejores a lo esperado, las acciones argentinas resi...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-18.mp3" length="1656864" type="audio/mpeg"/>
@@ -117,14 +125,6 @@
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-29.mp3" length="1639872" type="audio/mpeg"/>
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-29.mp3</guid>
     <pubDate>Thu, 29 Oct 2026 13:33:29 -0300</pubDate>
-    <itunes:duration>05:53</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Miércoles 28 de octubre de 2026</title>
-    <description>Muy buenos días a todos. Hoy es miércoles veintiocho de octubre de dos mil veintiséis y este es el resumen financiero para encarar la jornada bien informados. Tres temas clave para arrancar el día: primero, supermiércoles en Wall Street con la decisión de tasas de la Reserva Federal y balances gigan...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-28.mp3" length="1718496" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-28.mp3</guid>
-    <pubDate>Wed, 28 Oct 2026 13:24:33 -0300</pubDate>
     <itunes:duration>05:53</itunes:duration>
   </item>
 </channel>
