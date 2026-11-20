@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-11-20.mp3",
+  "titulo": "Morning Brief - Viernes 20 de noviembre de 2026",
+  "resumen": "Muy buenos días a todos. Hoy es viernes veinte de noviembre de dos mil veintiséis y arrancamos este resumen de mercados para la mesa comercial con los tres titulares clave de la jornada. En primer lugar, viernes negro en las bolsas internacionales por una fuerte corrección tecnológica. En segundo lu...",
+  "bytes": 1609200,
+  "fecha_rfc": "Fri, 20 Nov 2026 15:37:04 -0300",
+  "duracion": "05:46"
+ },
+ {
   "archivo": "brief-2026-11-19.mp3",
   "titulo": "Morning Brief - Jueves 19 de noviembre de 2026",
   "resumen": "Muy buenos días a todos. Hoy es jueves diecinueve de noviembre de dos mil veintiséis y este es el panorama financiero que necesitás para arrancar la rueda bien informado. Tres titulares marcan la agenda de esta mañana. Primero, Wall Street se ilusiona con la tecnología y los futuros del Nasdaq salta...",
@@ -110,13 +118,5 @@
   "bytes": 1405152,
   "fecha_rfc": "Fri, 30 Oct 2026 13:28:21 -0300",
   "duracion": "04:42"
- },
- {
-  "archivo": "brief-2026-10-29.mp3",
-  "titulo": "Morning Brief - Jueves 29 de octubre de 2026",
-  "resumen": "Hola, muy buenos días a todos. Hoy es jueves veintinueve de octubre de dos mil veintiséis y este es el panorama financiero para arrancar la rueda bien informados. Los tres titulares del día: primero, las tecnológicas arrastran a Wall Street tras el desplome de Alphabet por dudas en la rentabilidad d...",
-  "bytes": 1639872,
-  "fecha_rfc": "Thu, 29 Oct 2026 13:33:29 -0300",
-  "duracion": "05:53"
  }
 ]
