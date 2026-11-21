@@ -150,5 +150,26 @@
     "expectativa": "Publicación de las actas de la Fed para evaluar la trayectoria de las tasas de interés globales."
    }
   ]
+ },
+ {
+  "semana": "2026-11-20",
+  "items": [
+   {
+    "tema": "Licitaciones del Tesoro y liquidez",
+    "expectativa": "Verificar la capacidad del Tesoro de renovar vencimientos sin convalidar subas bruscas de tasas."
+   },
+   {
+    "tema": "Brecha cambiaria y dólares financieros",
+    "expectativa": "Monitorear si el contado con liqui consolida su recorrido alcista tras superar el cuatro por ciento semanal."
+   },
+   {
+    "tema": "Inflación PCE en Estados Unidos",
+    "expectativa": "Conocer el deflactor del gasto de consumo personal para recalibrar las expectativas de tasas de la Fed."
+   },
+   {
+    "tema": "Consumo minorista en Black Friday",
+    "expectativa": "Evaluar la tracción de las ventas en Estados Unidos tras el derrumbe del sector tecnológico en Wall Street."
+   }
+  ]
  }
 ]
