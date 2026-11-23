@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Lunes 23 de noviembre de 2026</title>
+    <description>Muy buenos días a todos. Lunes veintitrés de noviembre de dos mil veintiséis. Bienvenidos a una nueva edición del podcast de mercados para el equipo comercial. Arrancamos la semana con tres claves indispensables antes de que abra la rueda: primero, fuerte rebote en Wall Street con los futuros buscan...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-23.mp3" length="1671408" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-23.mp3</guid>
+    <pubDate>Mon, 23 Nov 2026 06:49:03 -0300</pubDate>
+    <itunes:duration>05:58</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Viernes 20 de noviembre de 2026</title>
     <description>Muy buenos días a todos. Hoy es viernes veinte de noviembre de dos mil veintiséis y arrancamos este resumen de mercados para la mesa comercial con los tres titulares clave de la jornada. En primer lugar, viernes negro en las bolsas internacionales por una fuerte corrección tecnológica. En segundo lu...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-20.mp3" length="1609200" type="audio/mpeg"/>
@@ -118,14 +126,6 @@
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-02.mp3</guid>
     <pubDate>Mon, 02 Nov 2026 16:57:05 -0300</pubDate>
     <itunes:duration>05:51</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Viernes 30 de octubre de 2026</title>
-    <description>Buen día para todos. Es viernes treinta de octubre de dos mil veintiséis, arranca el último día de la semana y acá te traigo lo que tenés que saber antes de que suene la campana. Hoy los titulares son tres. Primero, el desplome tecnológico en Wall Street liderado por Intel y Amazon que golpea el áni...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-30.mp3" length="1405152" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-10-30.mp3</guid>
-    <pubDate>Fri, 30 Oct 2026 13:28:21 -0300</pubDate>
-    <itunes:duration>04:42</itunes:duration>
   </item>
 </channel>
 </rss>
