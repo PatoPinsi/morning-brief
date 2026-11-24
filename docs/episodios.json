@@ -1,5 +1,13 @@
 [
  {
+  "archivo": "brief-2026-11-24.mp3",
+  "titulo": "Morning Brief - Martes 24 de noviembre de 2026",
+  "resumen": "Muy buenos días a todos. Hoy es martes veinticuatro de noviembre de dos mil veintiséis y este es el panorama financiero de la mañana para arrancar la jornada bien informados. Tres titulares para destacar antes de la apertura: fuerte rebote en Wall Street de la mano de Nvidia, importante recuperación...",
+  "bytes": 1632816,
+  "fecha_rfc": "Tue, 24 Nov 2026 06:48:46 -0300",
+  "duracion": "05:51"
+ },
+ {
   "archivo": "brief-2026-11-23.mp3",
   "titulo": "Morning Brief - Lunes 23 de noviembre de 2026",
   "resumen": "Muy buenos días a todos. Lunes veintitrés de noviembre de dos mil veintiséis. Bienvenidos a una nueva edición del podcast de mercados para el equipo comercial. Arrancamos la semana con tres claves indispensables antes de que abra la rueda: primero, fuerte rebote en Wall Street con los futuros buscan...",
@@ -110,13 +118,5 @@
   "bytes": 1394496,
   "fecha_rfc": "Tue, 03 Nov 2026 14:29:06 -0300",
   "duracion": "04:56"
- },
- {
-  "archivo": "brief-2026-11-02.mp3",
-  "titulo": "Morning Brief - Lunes 2 de noviembre de 2026",
-  "resumen": "Muy buenos días a todos. Hoy es lunes dos de noviembre de dos mil veintiséis y este es el panorama financiero para encarar la apertura de la semana con información precisa. Arrancamos con los tres títulos clave del día. Primero, desplome internacional del petróleo que arrastra al sector energético g...",
-  "bytes": 1658016,
-  "fecha_rfc": "Mon, 02 Nov 2026 16:57:05 -0300",
-  "duracion": "05:51"
  }
 ]
