@@ -8,6 +8,14 @@
   <itunes:author>Morning Brief</itunes:author>
   <itunes:block>Yes</itunes:block>
   <item>
+    <title>Morning Brief - Viernes 27 de noviembre de 2026</title>
+    <description>¡Buen día a todos! Bienvenidos a una nueva edición del podcast matinal de mercados. Hoy es viernes veintisiete de noviembre de dos mil veintiséis. Arrancamos la última jornada de la semana repasando los tres titulares clave del día. Primero, Wall Street se encamina a abrir con fuertes alzas tras el ...</description>
+    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-27.mp3" length="1697184" type="audio/mpeg"/>
+    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-27.mp3</guid>
+    <pubDate>Fri, 27 Nov 2026 06:48:44 -0300</pubDate>
+    <itunes:duration>05:55</itunes:duration>
+  </item>
+  <item>
     <title>Morning Brief - Jueves 26 de noviembre de 2026</title>
     <description>Buen día. Es jueves veintiséis de noviembre de dos mil veintiséis. Arrancamos este repaso financiero con tres titulares clave: la volatilidad vuelve a Wall Street ante dudas por el sector tecnológico y la inteligencia artificial, el riesgo país argentino cerró en mil sesenta y siete puntos básicos t...</description>
     <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-26.mp3" length="1410048" type="audio/mpeg"/>
@@ -118,14 +126,6 @@
     <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-09.mp3</guid>
     <pubDate>Mon, 09 Nov 2026 17:43:56 -0300</pubDate>
     <itunes:duration>05:54</itunes:duration>
-  </item>
-  <item>
-    <title>Morning Brief - Viernes 6 de noviembre de 2026</title>
-    <description>¡Muy buenos días a todos! Hoy es viernes seis de noviembre de dos mil veintiséis. Soy su anfitrión y esto es el resumen de mercados para la mesa de operaciones. Tres temas clave para arrancar la jornada: primero, el riesgo país argentino rozó los novecientos veinticinco puntos básicos en el pico de ...</description>
-    <enclosure url="https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-06.mp3" length="1631952" type="audio/mpeg"/>
-    <guid>https://PatoPinsi.github.io/morning-brief/episodios/brief-2026-11-06.mp3</guid>
-    <pubDate>Fri, 06 Nov 2026 14:29:50 -0300</pubDate>
-    <itunes:duration>05:55</itunes:duration>
   </item>
 </channel>
 </rss>
